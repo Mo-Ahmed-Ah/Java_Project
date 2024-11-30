@@ -1,0 +1,12 @@
+DROP DATABASE IF EXISTS me;
+CREATE DATABASE IF NOT EXISTS me;
+USE me;
+
+CREATE TABLE IF NOT EXISTS employee (
+    id INT(15) PRIMARY KEY AUTO_INCREMENT,
+    name VARCHAR(30),
+    gender BOOLEAN,
+    birth_date DATE,
+    salary REAL
+);
+
