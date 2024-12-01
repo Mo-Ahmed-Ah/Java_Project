@@ -5,7 +5,8 @@ import java.util.List;
 public interface EmployeeDAO {
     List<Employee> findAll();
 
-    Employee findAllById(int id);
+    Employee createUser(String name);
+    Employee findById(int id);
     Employee findAllByName(String name);
     Employee findAllBySalary(double salary);
 
