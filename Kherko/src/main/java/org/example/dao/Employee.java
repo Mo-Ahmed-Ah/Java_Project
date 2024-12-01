@@ -12,6 +12,7 @@ public class Employee {
     public Employee() {
     }
 
+
     public Employee(int id, String name, boolean gender, Date birthdate, double salary) {
         this.id = id;
         this.name = name;

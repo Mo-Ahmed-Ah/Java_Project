@@ -42,7 +42,7 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
         if(employee.getId() > 0){//update user data if id != 0
 
         }else {// create user if id = 0
-            String query = "INSERT INTO employee (name , gender , birth_date , salary) VALUES (?,?,?)";
+            String query = "INSERT INTO employee (name , gender , birth_date , salary) VALUES (?,?,?,?)";
 //            java close the preparedStatement after end the try statement
             try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
 
@@ -64,8 +64,9 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
                 try {
                     conn.close();
                 } catch (SQLException e) {
-                    throw new RuntimeException(e);
+                    e.printStackTrace();
                 }
+
             }
         }
     }
