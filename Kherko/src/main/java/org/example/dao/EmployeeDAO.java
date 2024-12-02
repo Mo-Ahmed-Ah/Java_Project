@@ -10,7 +10,9 @@ public interface EmployeeDAO {
     Employee findAllByName(String name);
     Employee findAllBySalary(double salary);
 
-    void sava(Employee employee);
+    void create(Employee employee);
+    void update(Employee employee);
 
+//    return any employee name with id
     void deleteById(int id);
 }

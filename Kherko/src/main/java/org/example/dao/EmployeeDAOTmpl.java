@@ -4,7 +4,9 @@ import util.Utils;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class EmployeeDAOTmpl implements EmployeeDAO{
@@ -15,7 +17,34 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
 
     @Override
     public List<Employee> findAll() {
-        return List.of();
+        Connection conn = DBConnection.getConnection();
+        if (conn == null){
+            return null;
+        }
+        List<Employee>  employeeList =  new LinkedList<>();
+        String query = "SELECT * FROM employee";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()){
+                Employee employee = new Employee(
+                                                resultSet.getInt("id"),
+                                                resultSet.getString("name"),
+                                                resultSet.getBoolean("gender"),
+                                                resultSet.getDate("birth_date") ,
+                                                resultSet.getDouble("salary")
+                );
+                employeeList.add(employee);
+            }
+        }catch (SQLException se){
+            se.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            }catch (SQLException se){
+                se.printStackTrace();
+            }
+        }
+        return employeeList;
     }
 
     @Override
@@ -34,15 +63,52 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
     }
 
     @Override
-    public void sava(Employee employee) {
+    public void create(Employee employee) {
+        Connection conn = DBConnection.getConnection();
+        if(conn == null){
+            return;
+        }
+        if(employee.getId() == 0) {// create user if id = 0
+            String query = "INSERT INTO employee (name , gender , birth_date , salary) VALUES (?,?,?,?)";
+//            java close the preparedStatement after end the try statement
+            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+
+                preparedStatement.setString(1, employee.getName());
+                preparedStatement.setBoolean(2, employee.isGender());
+                /*
+                 * Using getSqlDate from my Utils class from my util package.
+                 * */
+                preparedStatement.setDate(3, Utils.getSqlDate(employee.getBirthdate()));
+                preparedStatement.setDouble(4, employee.getSalary());
+
+
+                preparedStatement.executeUpdate();
+
+            } catch (SQLException es) {
+                es.printStackTrace();
+            } finally {
+//                close connection object
+                try {
+                    conn.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }else {
+            System.out.println("not create");
+        }
+    }
+
+    @Override
+    public void update(Employee employee) {
         Connection conn = DBConnection.getConnection();
         if(conn == null){
             return;
         }
         if(employee.getId() > 0){//update user data if id != 0
-
-        }else {// create user if id = 0
-            String query = "INSERT INTO employee (name , gender , birth_date , salary) VALUES (?,?,?,?)";
+            String query = "UPDATE employee SET name=?, gender=?, birth_date=?, salary=? WHERE id=?";
 //            java close the preparedStatement after end the try statement
             try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
 
@@ -50,10 +116,11 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
                 preparedStatement.setString(1,employee.getName());
                 preparedStatement.setBoolean(2,employee.isGender());
                 /*
-                * Using getSqlDate from my Utils class from my util package.
-                * */
+                 * Using getSqlDate from my Utils class from my util package.
+                 * */
                 preparedStatement.setDate(3, Utils.getSqlDate(employee.getBirthdate()));
                 preparedStatement.setDouble(4,employee.getSalary());
+                preparedStatement.setDouble(5,employee.getId());
 
                 preparedStatement.executeUpdate();
 
@@ -66,8 +133,10 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
-
+                System.out.println("updated");
             }
+        }else {
+            System.out.println("not update");
         }
     }
 
@@ -75,4 +144,5 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
     public void deleteById(int id) {
 
     }
+
 }

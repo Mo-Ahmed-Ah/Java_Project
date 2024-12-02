@@ -9,4 +9,10 @@ public class Utils {
         return new java.sql.Date(utilDate.getTime());
 
     }
+
+
+//    public static java.sql.Date getUtilDate(java.sql.Date sqlDate){
+//        return new java.util.Date(sqlDate.getTime());
+//
+//    }
 }

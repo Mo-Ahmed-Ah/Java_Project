@@ -1,20 +1,19 @@
 package org.example;
 
-
 import org.example.dao.Employee;
 import org.example.dao.EmployeeDAO;
 import org.example.dao.EmployeeDAOTmpl;
 
 import java.util.Date;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+/*
+* Before run code you must run pom.xml file , Because install all resources same database connector etc...
+* */
 public class Main {
     public static void main(String[] args) {
         EmployeeDAO employeeDAO = new EmployeeDAOTmpl();
-        Employee employee = new Employee(2, "mohamed", true, new Date(2004  , 9 , 12), 3000d);
+        Employee employee = new Employee(1, "Els", true, new Date(), 3000d);
 
-
-        employeeDAO.sava(employee);
+        employeeDAO.findAll().forEach(System.out::println);
     }
 }
