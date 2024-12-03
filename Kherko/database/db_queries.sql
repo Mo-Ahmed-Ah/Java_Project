@@ -10,3 +10,9 @@ CREATE TABLE IF NOT EXISTS employee (
     salary REAL
 );
 
+CREATE TABLE IF NOT EXISTS `kherko`.`status` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NULL,
+  `cup` VARCHAR(45) NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE INDEX `id_UNIQUE` (`id` ASC) VISIBLE)

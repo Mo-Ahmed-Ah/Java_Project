@@ -1,0 +1,8 @@
+1- Database name is kherko
+===================================================
+2- First table employee
+    1- id ----- int ------- PRIMARY KEY ---------- AUTO_INCREMENT  ------- initial 0
+    2- name ----- varchar ----- 30 ----- NOT NULL --------
+===================================================
+3- scound table department
+    1- id --------- int ------- PRIMARY KEY ------

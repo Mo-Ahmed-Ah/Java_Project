@@ -2,7 +2,7 @@ package org.example.dao;
 
 /*
     dao => data access opject
- */
+*/
 
 import java.sql.Connection;
 import java.sql.DriverManager;
