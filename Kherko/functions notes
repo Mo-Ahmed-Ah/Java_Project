@@ -1,0 +1,5 @@
+1-  public static java.sql.Date getSqlDate(java.util.Date utilDate)
+        explain
+            1- This function in Utils class in util folder in java folder in main folder in src folder.
+            2- This function take the util data ant covert to sql data
+            3- I used this function in preparedStatement.setDouble , Because this function take the sql data not util date.

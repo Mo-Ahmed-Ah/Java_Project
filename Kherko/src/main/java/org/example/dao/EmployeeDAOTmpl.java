@@ -27,11 +27,11 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
                 Employee employee = new Employee(
-                                                resultSet.getInt("id"),
-                                                resultSet.getString("name"),
-                                                resultSet.getBoolean("gender"),
-                                                resultSet.getDate("birth_date") ,
-                                                resultSet.getDouble("salary")
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getBoolean("gender"),
+                        resultSet.getDate("birth_date") ,
+                        resultSet.getDouble("salary")
                 );
                 employeeList.add(employee);
             }
@@ -49,7 +49,7 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
 
     @Override
     public Employee findById(int id) {
-        return null;
+        return  null;
     }
 
     @Override
@@ -68,36 +68,32 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
         if(conn == null){
             return;
         }
-        if(employee.getId() == 0) {// create user if id = 0
-            String query = "INSERT INTO employee (name , gender , birth_date , salary) VALUES (?,?,?,?)";
+        String query = "INSERT INTO employee (name , gender , birth_date , salary) VALUES (?,?,?,?)";
 //            java close the preparedStatement after end the try statement
-            try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
 
-                preparedStatement.setString(1, employee.getName());
-                preparedStatement.setBoolean(2, employee.isGender());
-                /*
-                 * Using getSqlDate from my Utils class from my util package.
-                 * */
-                preparedStatement.setDate(3, Utils.getSqlDate(employee.getBirthdate()));
-                preparedStatement.setDouble(4, employee.getSalary());
+            preparedStatement.setString(1, employee.getName());
+            preparedStatement.setBoolean(2, employee.isGender());
+            /*
+             * Using getSqlDate from my Utils class from my util package.
+             * */
+            preparedStatement.setDate(3, Utils.getSqlDate(employee.getBirthdate()));
+            preparedStatement.setDouble(4, employee.getSalary());
 
 
-                preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
-            } catch (SQLException es) {
-                es.printStackTrace();
-            } finally {
+        } catch (SQLException es) {
+            es.printStackTrace();
+        } finally {
 //                close connection object
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        }else {
-            System.out.println("not create");
+
         }
     }
 
@@ -107,37 +103,35 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
         if(conn == null){
             return;
         }
-        if(employee.getId() > 0){//update user data if id != 0
-            String query = "UPDATE employee SET name=?, gender=?, birth_date=?, salary=? WHERE id=?";
+        //update user data if id != 0
+        String query = "UPDATE employee SET name=?, gender=?, birth_date=?, salary=? WHERE id=?";
 //            java close the preparedStatement after end the try statement
-            try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
 
 
-                preparedStatement.setString(1,employee.getName());
-                preparedStatement.setBoolean(2,employee.isGender());
-                /*
-                 * Using getSqlDate from my Utils class from my util package.
-                 * */
-                preparedStatement.setDate(3, Utils.getSqlDate(employee.getBirthdate()));
-                preparedStatement.setDouble(4,employee.getSalary());
-                preparedStatement.setDouble(5,employee.getId());
+            preparedStatement.setString(1,employee.getName());
+            preparedStatement.setBoolean(2,employee.isGender());
+            /*
+             * Using getSqlDate from my Utils class from my util package.
+             * */
+            preparedStatement.setDate(3, Utils.getSqlDate(employee.getBirthdate()));
+            preparedStatement.setDouble(4,employee.getSalary());
+            preparedStatement.setDouble(5,employee.getId());
 
-                preparedStatement.executeUpdate();
+            preparedStatement.executeUpdate();
 
-            } catch (SQLException es) {
-                es.printStackTrace();
-            }finally {
+        } catch (SQLException es) {
+            es.printStackTrace();
+        }finally {
 //                close connection object
-                try {
-                    conn.close();
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
-                System.out.println("updated");
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
-        }else {
-            System.out.println("not update");
+            System.out.println("updated");
         }
+
     }
 
     @Override

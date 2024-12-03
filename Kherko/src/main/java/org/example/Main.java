@@ -12,8 +12,8 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         EmployeeDAO employeeDAO = new EmployeeDAOTmpl();
-        Employee employee = new Employee(1, "Els", true, new Date(), 3000d);
-
+        Employee employee = new Employee(1, "moh", true, new Date(), 3000d);
+        employeeDAO.update(employee);
         employeeDAO.findAll().forEach(System.out::println);
     }
 }
