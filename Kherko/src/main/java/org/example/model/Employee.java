@@ -61,6 +61,10 @@ public class Employee {
         this.salary = salary;
     }
 
+    public static EmpolyeeBuilder builder(){
+        return new EmpolyeeBuilder();
+    }
+
     @Override
     public String toString() {
         return "Employee{" +

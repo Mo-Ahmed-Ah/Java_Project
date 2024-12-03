@@ -3,3 +3,21 @@
             1- This function in Utils class in util folder in java folder in main folder in src folder.
             2- This function take the util data ant covert to sql data
             3- I used this function in preparedStatement.setDouble , Because this function take the sql data not util date.
+===========================================================================
+2- public static EmployeeBuilder builder()
+        explain
+            1- I using builder design to write clean code.
+            2- You can used this function to easy create object or new employee in database
+            3- How can i using this function
+                1- Write the class name like Employee before write the object name after the object name write =
+                2- After = write the class name after that write .builder()
+                3- After that you can set the attributes like .id(12).name("Ahmed")
+                4- After finishing set all attributes must be write .build();
+            4- example
+                Employee employee = Employee.builder()
+                            .name("Ahmed")
+                            .gender(true)
+                            .birthdate(new Date())
+                            .salary(2020d)
+                            .build();
+ ===========================================================================

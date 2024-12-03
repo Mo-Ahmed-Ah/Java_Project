@@ -9,7 +9,7 @@ public interface EmployeeDAO {
 
     Employee createUser(String name);
     Employee findById(int id);
-    Employee findAllByName(String name);
+    Employee findByName(String name);
     Employee findAllBySalary(double salary);
 
     void create(Employee employee);

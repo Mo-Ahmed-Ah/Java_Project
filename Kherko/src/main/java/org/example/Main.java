@@ -12,10 +12,12 @@ import java.util.Date;
 public class Main {
     public static void main(String[] args) {
         EmployeeDAO employeeDAO = new EmployeeDAOTmpl();
-        Employee employee = new Employee(1, "moh", true, new Date(), 3000d);
-//        employeeDAO.update(employee);
-//        employeeDAO.findAll().forEach(System.out::println);
-        Employee employee1 = employeeDAO.findById(1);
-        System.out.println(employee1);
+        Employee employee = Employee.builder()
+            .name("Ahmed")
+            .gender(true)
+            .birthdate(new Date())
+            .salary(2020d)
+            .build();
+        employeeDAO.create(employee);
     }
 }

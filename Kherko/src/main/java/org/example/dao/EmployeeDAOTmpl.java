@@ -27,13 +27,13 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
         try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()){
-                Employee employee = new Employee(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getBoolean("gender"),
-                        resultSet.getDate("birth_date") ,
-                        resultSet.getDouble("salary")
-                );
+                Employee employee = Employee.builder()
+                            .id(resultSet.getInt("id"))
+                            .name(resultSet.getString("name"))
+                            .gender(resultSet.getBoolean("gender"))
+                            .birthdate(resultSet.getDate("birth_date"))
+                            .salary(resultSet.getDouble("salary"))
+                            .build();
                 employeeList.add(employee);
             }
         }catch (SQLException se){
@@ -60,14 +60,13 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
             preparedStatement.setInt(1,id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if(resultSet.next()){
-                Employee employee = new Employee(
-                        resultSet.getInt("id"),
-                        resultSet.getString("name"),
-                        resultSet.getBoolean("gender"),
-                        resultSet.getDate("birth_date") ,
-                        resultSet.getDouble("salary")
-                );
-                return employee;
+                return Employee.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .gender(resultSet.getBoolean("gender"))
+                        .birthdate(resultSet.getDate("birth_date"))
+                        .salary(resultSet.getDouble("salary"))
+                        .build();
             }
         }catch (SQLException se){
             se.printStackTrace();
@@ -82,8 +81,35 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
     }
 
     @Override
-    public Employee findAllByName(String name) {
-        return null;
+    public Employee findByName(String name) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null){
+            return null;
+        }
+        String query = "SELECT * FROM employee WHERE name=?;";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
+
+            preparedStatement.setString(1, name);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                return Employee.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .gender(resultSet.getBoolean("gender"))
+                        .birthdate(resultSet.getDate("birth_date"))
+                        .salary(resultSet.getDouble("salary"))
+                        .build();
+            }
+        }catch (SQLException se){
+            se.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            }catch (SQLException se){
+                se.printStackTrace();
+            }
+        }
+        return  null;
     }
 
     @Override
@@ -165,6 +191,26 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
 
     @Override
     public void deleteById(int id) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null){
+            return;
+        }
+        String query = "DELETE FROM employee WHERE id=?;";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
+
+            preparedStatement.setInt(1,id);
+            preparedStatement.executeUpdate();
+            System.out.println("True delete anyone");
+        }catch (SQLException se){
+            se.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+                System.out.println("True conn close");
+            }catch (SQLException se){
+                se.printStackTrace();
+            }
+        }
 
     }
 
