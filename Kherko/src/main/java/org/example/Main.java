@@ -1,6 +1,6 @@
 package org.example;
 
-import org.example.dao.Employee;
+import org.example.model.Employee;
 import org.example.dao.EmployeeDAO;
 import org.example.dao.EmployeeDAOTmpl;
 
@@ -13,7 +13,9 @@ public class Main {
     public static void main(String[] args) {
         EmployeeDAO employeeDAO = new EmployeeDAOTmpl();
         Employee employee = new Employee(1, "moh", true, new Date(), 3000d);
-        employeeDAO.update(employee);
-        employeeDAO.findAll().forEach(System.out::println);
+//        employeeDAO.update(employee);
+//        employeeDAO.findAll().forEach(System.out::println);
+        Employee employee1 = employeeDAO.findById(1);
+        System.out.println(employee1);
     }
 }

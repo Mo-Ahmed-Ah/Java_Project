@@ -1,5 +1,6 @@
 package org.example.dao;
 
+import org.example.model.Employee;
 import util.Utils;
 
 import java.sql.Connection;
@@ -49,6 +50,34 @@ public class EmployeeDAOTmpl implements EmployeeDAO{
 
     @Override
     public Employee findById(int id) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null){
+            return null;
+        }
+        String query = "SELECT * FROM employee WHERE id=?;";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)){
+
+            preparedStatement.setInt(1,id);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if(resultSet.next()){
+                Employee employee = new Employee(
+                        resultSet.getInt("id"),
+                        resultSet.getString("name"),
+                        resultSet.getBoolean("gender"),
+                        resultSet.getDate("birth_date") ,
+                        resultSet.getDouble("salary")
+                );
+                return employee;
+            }
+        }catch (SQLException se){
+            se.printStackTrace();
+        }finally {
+            try {
+                conn.close();
+            }catch (SQLException se){
+                se.printStackTrace();
+            }
+        }
         return  null;
     }
 
