@@ -21,3 +21,5 @@
                             .salary(2020d)
                             .build();
  ===========================================================================
+ 3 -  When you create add status function you most be bass current  data from computer with LocalDate function now() bush in joundate
+ ===========================================================================

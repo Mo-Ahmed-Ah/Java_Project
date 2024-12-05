@@ -1,8 +1,18 @@
 1- Database name is kherko
 ===================================================
-2- First table employee
-    1- id ----- int ------- PRIMARY KEY ---------- AUTO_INCREMENT  ------- initial 0
-    2- name ----- varchar ----- 30 ----- NOT NULL --------
+2- First table status
+    1- id ----- int ------- PRIMARY KEY ---------- AUTO_INCREMENT
+    2- name ----- VARCHAR ----- 50 ----- NOT NULL --------
+    3- nickname ----- VARCHAR ----- 30 ----- NULL --------
+    4- birthdate ----- DATE ----- NULL --------
+    5- location ----- VARCHAR ----- 100 ----- NULL --------
+    6- phone ----- VARCHAR ----- 15 ----- NULL --------
+    7- gender ----- Boolean ----- NOT NULL --------
+    8- gid ----- CHAR ----- 14 ----- NULL --------
+    9- notes ----- Text ----- NULL --------
+    10- joundate ----- Text ----- NULL --------
+
+notes
+    1- If gender is 0 this mean the type is fmail, But it's 1 this mean the type is mail.
+    2- the gid main gavarnment id
 ===================================================
-3- scound table department
-    1- id --------- int ------- PRIMARY KEY ------
