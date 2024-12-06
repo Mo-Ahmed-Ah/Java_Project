@@ -18,16 +18,8 @@ public class TypesStatus {
         return statustitle;
     }
 
-    public void setStatustitle(String statustitle) {
-        this.statustitle = statustitle;
-    }
-
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     @Override

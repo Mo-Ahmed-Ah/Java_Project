@@ -1,4 +1,4 @@
-1- Database name is kherko
+x1- Database name is kherko
 ===================================================
 2- First table status
     1- id ----- int ------- PRIMARY KEY ---------- AUTO_INCREMENT
@@ -10,22 +10,22 @@
     7- gender ----- Boolean ----- NOT NULL --------
     8- gid ----- CHAR ----- 14 ----- NULL --------
     9- notes ----- Text ----- NULL --------
-    10- joundate ----- Text ----- NULL --------
+    10- joundate ----- Date ----- NULL --------
 
 notes
     1- If gender is 0 this mean the type is fmail, But it's 1 this mean the type is mail.
     2- the gid main government id
 
 functions
-    1- adding status
-    2- remove status
+    1- adding status (TRUE)
+    2- remove status (TRUE)
     3- search by id
     4- search by name
     5- search by nickname
     6- search by location
     8- search by phone
     9- search by gid
-    10- search by  joundate
+    10- search by joundate
     11- search by gender
 ===================================================
 3- second table family_numbers
@@ -46,9 +46,9 @@ functions
     2- statustitle ------- VARCHAR ------- 30 ---------- NOT NULL
 
 functions
-    1- adding status type
-    2- removing status type
-    3- get all status
+    1- adding status type (true)
+    2- removing status type (true)
+    3- get all status (true)
 ===================================================
 5- fourth table status_types
     1- typestatus_id ----- int ----- NOT NULL ----- FOREIGN KEY ----- from types_status table ----- id column ----- on update CASCADE ----- on change CASCADE

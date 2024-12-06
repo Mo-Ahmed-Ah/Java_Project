@@ -1,9 +1,11 @@
 package database;
 
+import model.TypesStatus;
+
 import java.util.List;
 
 public interface TypesStatusDB {
-    List<model.TypesStatus> getall();
+    List<TypesStatus> getall();
 
     model.TypesStatus getStatusByTitle(String statustitle);
 
