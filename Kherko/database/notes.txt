@@ -15,17 +15,48 @@
 notes
     1- If gender is 0 this mean the type is fmail, But it's 1 this mean the type is mail.
     2- the gid main government id
+
+functions
+    1- adding status
+    2- remove status
+    3- search by id
+    4- search by name
+    5- search by nickname
+    6- search by location
+    8- search by phone
+    9- search by gid
+    10- search by  joundate
+    11- search by gender
 ===================================================
 3- second table family_numbers
     1- status_id ----- int ----- FOREIGN KEY ----- from status table ----- id column ----- on update CASCADE ----- on change CASCADE
     2- mail ----- int ----- null
     3- fmail ----- int ----- null
+
+functions
+    1- adding mail
+    2- removing mail
+    3- adding fmail
+    4- removing fmal
+    5- update mail
+    6- update fmail
 ===================================================
 4- third table types_status
     1- id ----- int ------- PRIMARY KEY ---------- AUTO_INCREMENT
     2- statustitle ------- VARCHAR ------- 30 ---------- NOT NULL
+
+functions
+    1- adding status type
+    2- removing status type
+    3- get all status
 ===================================================
 5- fourth table status_types
     1- typestatus_id ----- int ----- NOT NULL ----- FOREIGN KEY ----- from types_status table ----- id column ----- on update CASCADE ----- on change CASCADE
     2- status_id ----- int ----- NOT NULL ----- FOREIGN KEY ----- from status table ----- id column ----- on update CASCADE ----- on change CASCADE
+
+functions
+    1- adding
+    2- remove
+    3- update
+    4- search by status type
 ===================================================
