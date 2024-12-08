@@ -12,7 +12,7 @@ public class Status {
     private  String location;
     private  String phone;
     private  boolean gender;
-    private  int gid;
+    private  long gid;
     private  String notes;
     private  Date joundate;
 
@@ -20,7 +20,7 @@ public class Status {
 
     }
 
-    public Status(int id , String name , String nickname , Date birthdate , String location , String phone , boolean gender, int gid , String notes ,Date joundate ) {
+    public Status(int id , String name , String nickname , Date birthdate , String location , String phone , boolean gender, long gid , String notes ,Date joundate ) {
         this.id = id;
         this.name = name;
         this.nickname = nickname;
@@ -64,7 +64,7 @@ public class Status {
         return phone;
     }
 
-    public int getGid() {
+    public long getGid() {
         return gid;
     }
 
@@ -76,7 +76,6 @@ public class Status {
         return joundate;
     }
 
-    public static StatusBulder builder(){return new StatusBulder();}
 
     @Override
     public String toString() {
@@ -122,7 +121,7 @@ public class Status {
         this.gender = gender;
     }
 
-    public void setGid(int gid) {
+    public void setGid(long gid) {
         this.gid = gid;
     }
 
@@ -136,4 +135,6 @@ public class Status {
 
     public void setGender(String s) {
     }
+
+    public static StatusBulder builder(){return new StatusBulder();}
 }

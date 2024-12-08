@@ -8,11 +8,11 @@ public class StatusBulder {
     private  int id;
     private  String name;
     private  String nickname;
-    private Date birthdate;
+    private  Date birthdate;
     private  String location;
     private  String phone;
     private  boolean gender;
-    private  int gid;
+    private  long gid;
     private  String notes;
     private  Date joundate;
 
@@ -44,7 +44,7 @@ public class StatusBulder {
         this.gender = gender;
         return this;
     }
-    public StatusBulder gid(int gid) {
+    public StatusBulder gid(long gid) {
         this.gid = gid;
         return this;
     }

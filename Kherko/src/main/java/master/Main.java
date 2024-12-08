@@ -95,7 +95,7 @@ public class Main extends JFrame {
 
             try {
                 // Try parsing GID as an integer
-                status.setGid(Integer.parseInt(gidField.getText()));
+                status.setGid(Long.getLong(gidField.getText()));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Invalid GID input! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
@@ -122,7 +122,7 @@ public class Main extends JFrame {
 
             try {
                 // Try parsing GID as an integer
-                status.setGid(Integer.parseInt(gidField.getText()));
+                status.setGid(Long.getLong(gidField.getText()));
             } catch (NumberFormatException ex) {
                 JOptionPane.showMessageDialog(this, "Invalid GID input! Please enter a valid number.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;

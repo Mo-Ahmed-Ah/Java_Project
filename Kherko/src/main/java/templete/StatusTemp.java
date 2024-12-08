@@ -31,7 +31,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setString(4, status.getLocation());
             preparedStatement.setString(5, status.getPhone());
             preparedStatement.setBoolean(6, status.getGender().equals("male"));
-            preparedStatement.setInt(7, status.getGid());
+            preparedStatement.setLong(7, status.getGid());
             preparedStatement.setString(8, status.getNotes());
             preparedStatement.setDate(9, new java.sql.Date(status.getJoundate().getTime()));
 
@@ -252,18 +252,105 @@ public class StatusTemp implements StatusDB {
 
     @Override
     public List<Status> getStatusByJoundate(Date joundate) {
-        return List.of();
+        List<Status> statusList = new ArrayList<>();
+        String query = "SELECT * FROM status WHERE joundate = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            if (conn == null) {
+                return null;
+            }
+
+            preparedStatement.setDate(1, new java.sql.Date(joundate.getTime()));
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Status status = Status.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .nickname(resultSet.getString("nickname"))
+                        .birthdate(resultSet.getDate("birthdate"))
+                        .location(resultSet.getString("location"))
+                        .phone(resultSet.getString("phone"))
+                        .gender(resultSet.getBoolean("gender"))
+                        .gid(resultSet.getInt("gid"))
+                        .notes(resultSet.getString("notes"))
+                        .joundate(resultSet.getDate("joundate"))
+                        .build();
+                statusList.add(status);
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return statusList;
     }
 
     @Override
     public List<Status> getStatusByGender(boolean gender) {
-        return List.of();
+        List<Status> statusList = new ArrayList<>();
+        String query = "SELECT * FROM status WHERE gender = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            if (conn == null) {
+                return null;
+            }
+
+            preparedStatement.setBoolean(1, gender);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Status status = Status.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .nickname(resultSet.getString("nickname"))
+                        .birthdate(resultSet.getDate("birthdate"))
+                        .location(resultSet.getString("location"))
+                        .phone(resultSet.getString("phone"))
+                        .gender(resultSet.getBoolean("gender"))
+                        .gid(resultSet.getInt("gid"))
+                        .notes(resultSet.getString("notes"))
+                        .joundate(resultSet.getDate("joundate"))
+                        .build();
+                statusList.add(status);
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
+        return statusList;
     }
 
     @Override
     public Status getStatusByGid(int gid) {
+
+        String query = "SELECT * FROM status WHERE gid = ?";
+        try (Connection conn = DBConnection.getConnection();
+             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+
+            if (conn == null) {
+                return null;
+            }
+
+            preparedStatement.setInt(1, gid);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                return Status.builder()
+                        .id(resultSet.getInt("id"))
+                        .name(resultSet.getString("name"))
+                        .nickname(resultSet.getString("nickname"))
+                        .birthdate(resultSet.getDate("birthdate"))
+                        .location(resultSet.getString("location"))
+                        .phone(resultSet.getString("phone"))
+                        .gender(resultSet.getBoolean("gender"))
+                        .gid(resultSet.getInt("gid"))
+                        .notes(resultSet.getString("notes"))
+                        .joundate(resultSet.getDate("joundate"))
+                        .build();
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        }
         return null;
     }
+
 
     @Override
     public void updateStatus(Status status) {
@@ -281,7 +368,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setString(4, status.getLocation());
             preparedStatement.setString(5, status.getPhone());
             preparedStatement.setBoolean(6, status.getGender().equals("male"));
-            preparedStatement.setInt(7, status.getGid());
+            preparedStatement.setLong(7, status.getGid());
             preparedStatement.setString(8, status.getNotes());
             preparedStatement.setDate(9, new java.sql.Date(status.getJoundate().getTime()));
             preparedStatement.setInt(10, status.getId());
