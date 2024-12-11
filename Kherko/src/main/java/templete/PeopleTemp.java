@@ -1,8 +1,8 @@
 package templete;
 
 import database.DBConnection;
-import database.StatusDB;
-import model.Status;
+import database.PeopleDB;
+import model.People;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -12,11 +12,11 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class StatusTemp implements StatusDB {
+public class PeopleTemp implements PeopleDB {
 
     @Override
-    public void addStatus(Status status) {
-        String query = "INSERT INTO status (name, nickname, birthdate, location, phone, gender, gid, notes, joundate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    public void addPeople(People People) {
+        String query = "INSERT INTO people (name, nickname, birthdate, location, phone, gender, gid, notes, joundate) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -25,15 +25,15 @@ public class StatusTemp implements StatusDB {
                 return;
             }
 
-            preparedStatement.setString(1, status.getName());
-            preparedStatement.setString(2, status.getNickname());
-            preparedStatement.setDate(3, new java.sql.Date(status.getBirthdate().getTime()));
-            preparedStatement.setString(4, status.getLocation());
-            preparedStatement.setString(5, status.getPhone());
-            preparedStatement.setBoolean(6, status.getGender().equals("male"));
-            preparedStatement.setLong(7, status.getGid());
-            preparedStatement.setString(8, status.getNotes());
-            preparedStatement.setDate(9, new java.sql.Date(status.getJoundate().getTime()));
+            preparedStatement.setString(1, People.getName());
+            preparedStatement.setString(2, People.getNickname());
+            preparedStatement.setDate(3, new java.sql.Date(People.getBirthdate().getTime()));
+            preparedStatement.setString(4, People.getLocation());
+            preparedStatement.setString(5, People.getPhone());
+            preparedStatement.setBoolean(6, People.getGender().equals("male"));
+            preparedStatement.setLong(7, People.getGid());
+            preparedStatement.setString(8, People.getNotes());
+            preparedStatement.setDate(9, new java.sql.Date(People.getJoundate().getTime()));
 
             int rowsInserted = preparedStatement.executeUpdate();
             if (rowsInserted > 0) {
@@ -47,9 +47,9 @@ public class StatusTemp implements StatusDB {
 
 
     @Override
-    public List<Status> getAll() {
-        List<Status> statusList = new ArrayList<>();
-        String query = "SELECT * FROM status";
+    public List<People> getAll() {
+        List<People> peopleList = new ArrayList<>();
+        String query = "SELECT * FROM people";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query);
              ResultSet resultSet = preparedStatement.executeQuery()) {
@@ -59,7 +59,7 @@ public class StatusTemp implements StatusDB {
             }
 
             while (resultSet.next()) {
-                Status status = Status.builder()
+                People people = People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -71,18 +71,18 @@ public class StatusTemp implements StatusDB {
                         .notes(resultSet.getString("notes"))
                         .joundate(resultSet.getDate("joundate"))
                         .build();
-                statusList.add(status);
+                peopleList.add(people);
             }
         } catch (SQLException se) {
             se.printStackTrace();
         }
-        return statusList;
+        return peopleList;
     }
 
 
     @Override
-    public Status getStatusById(int id) {
-        String query = "SELECT * FROM status WHERE id = ?";
+    public People getPeopleById(int id) {
+        String query = "SELECT * FROM people WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -93,7 +93,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return Status.builder()
+                return People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -114,9 +114,9 @@ public class StatusTemp implements StatusDB {
 
 
     @Override
-    public List<Status> getStatusByName(String name) {
-        List<Status> statusList = new ArrayList<>();
-        String query = "SELECT * FROM status WHERE name LIKE ?";
+    public List<People> getPeoplesByName(String name) {
+        List<People> statusList = new ArrayList<>();
+        String query = "SELECT * FROM people WHERE name LIKE ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -127,7 +127,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setString(1, "%" + name + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Status status = Status.builder()
+                People people = People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -139,7 +139,7 @@ public class StatusTemp implements StatusDB {
                         .notes(resultSet.getString("notes"))
                         .joundate(resultSet.getDate("joundate"))
                         .build();
-                statusList.add(status);
+                statusList.add(people);
             }
         } catch (SQLException se) {
             se.printStackTrace();
@@ -149,8 +149,8 @@ public class StatusTemp implements StatusDB {
 
 
     @Override
-    public Status getStatusByPhone(String phone) {
-        String query = "SELECT * FROM status WHERE phone = ?";
+    public People getPeoplesByPhone(String phone) {
+        String query = "SELECT * FROM people WHERE phone = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -161,7 +161,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setString(1, phone);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return Status.builder()
+                return People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -182,9 +182,9 @@ public class StatusTemp implements StatusDB {
 
 
     @Override
-    public List<Status> getStatusByNickname(String nickname) {
-        List<Status> statusList = new ArrayList<>();
-        String query = "SELECT * FROM status WHERE nickname LIKE ?";
+    public List<People> getPeoplesByNickname(String nickname) {
+        List<People> peoplesList = new ArrayList<>();
+        String query = "SELECT * FROM people WHERE nickname LIKE ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -195,7 +195,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setString(1, "%" + nickname + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Status status = Status.builder()
+                People people = People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -207,19 +207,19 @@ public class StatusTemp implements StatusDB {
                         .notes(resultSet.getString("notes"))
                         .joundate(resultSet.getDate("joundate"))
                         .build();
-                statusList.add(status);
+                peoplesList.add(people);
             }
         } catch (SQLException se) {
             se.printStackTrace();
         }
-        return statusList;
+        return peoplesList;
     }
 
 
     @Override
-    public List<Status> getStatusByLocation(String location) {
-        List<Status> statusList = new ArrayList<>();
-        String query = "SELECT * FROM status WHERE location LIKE ?";
+    public List<People> getPeoplesByLocation(String location) {
+        List<People> statusList = new ArrayList<>();
+        String query = "SELECT * FROM people WHERE location LIKE ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -230,7 +230,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setString(1, "%" + location + "%");
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Status status = Status.builder()
+                People status = People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -251,9 +251,9 @@ public class StatusTemp implements StatusDB {
     }
 
     @Override
-    public List<Status> getStatusByJoundate(Date joundate) {
-        List<Status> statusList = new ArrayList<>();
-        String query = "SELECT * FROM status WHERE joundate = ?";
+    public List<People> getPeoplesByJoundate(Date joundate) {
+        List<People> peoplesList = new ArrayList<>();
+        String query = "SELECT * FROM people WHERE joundate = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -264,7 +264,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setDate(1, new java.sql.Date(joundate.getTime()));
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Status status = Status.builder()
+                People people = People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -276,18 +276,18 @@ public class StatusTemp implements StatusDB {
                         .notes(resultSet.getString("notes"))
                         .joundate(resultSet.getDate("joundate"))
                         .build();
-                statusList.add(status);
+                peoplesList.add(people);
             }
         } catch (SQLException se) {
             se.printStackTrace();
         }
-        return statusList;
+        return peoplesList;
     }
 
     @Override
-    public List<Status> getStatusByGender(boolean gender) {
-        List<Status> statusList = new ArrayList<>();
-        String query = "SELECT * FROM status WHERE gender = ?";
+    public List<People> getPeoplesByGender(boolean gender) {
+        List<People> peoplesList = new ArrayList<>();
+        String query = "SELECT * FROM people WHERE gender = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -298,7 +298,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setBoolean(1, gender);
             ResultSet resultSet = preparedStatement.executeQuery();
             while (resultSet.next()) {
-                Status status = Status.builder()
+                People people = People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -310,18 +310,18 @@ public class StatusTemp implements StatusDB {
                         .notes(resultSet.getString("notes"))
                         .joundate(resultSet.getDate("joundate"))
                         .build();
-                statusList.add(status);
+                peoplesList.add(people);
             }
         } catch (SQLException se) {
             se.printStackTrace();
         }
-        return statusList;
+        return peoplesList;
     }
 
     @Override
-    public Status getStatusByGid(int gid) {
+    public People getPeopleByGid(int gid) {
 
-        String query = "SELECT * FROM status WHERE gid = ?";
+        String query = "SELECT * FROM people WHERE gid = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -332,7 +332,7 @@ public class StatusTemp implements StatusDB {
             preparedStatement.setInt(1, gid);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return Status.builder()
+                return People.builder()
                         .id(resultSet.getInt("id"))
                         .name(resultSet.getString("name"))
                         .nickname(resultSet.getString("nickname"))
@@ -353,7 +353,7 @@ public class StatusTemp implements StatusDB {
 
 
     @Override
-    public void updateStatus(Status status) {
+    public void updatePeople(People people) {
         String query = "UPDATE status SET name = ?, nickname = ?, birthdate = ?, location = ?, phone = ?, gender = ?, gid = ?, notes = ?, joundate = ? WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
@@ -362,16 +362,16 @@ public class StatusTemp implements StatusDB {
                 return;
             }
 
-            preparedStatement.setString(1, status.getName());
-            preparedStatement.setString(2, status.getNickname());
-            preparedStatement.setDate(3, new java.sql.Date(status.getBirthdate().getTime()));
-            preparedStatement.setString(4, status.getLocation());
-            preparedStatement.setString(5, status.getPhone());
-            preparedStatement.setBoolean(6, status.getGender().equals("male"));
-            preparedStatement.setLong(7, status.getGid());
-            preparedStatement.setString(8, status.getNotes());
-            preparedStatement.setDate(9, new java.sql.Date(status.getJoundate().getTime()));
-            preparedStatement.setInt(10, status.getId());
+            preparedStatement.setString(1, people.getName());
+            preparedStatement.setString(2, people.getNickname());
+            preparedStatement.setDate(3, new java.sql.Date(people.getBirthdate().getTime()));
+            preparedStatement.setString(4, people.getLocation());
+            preparedStatement.setString(5, people.getPhone());
+            preparedStatement.setBoolean(6, people.getGender().equals("male"));
+            preparedStatement.setLong(7, people.getGid());
+            preparedStatement.setString(8, people.getNotes());
+            preparedStatement.setDate(9, new java.sql.Date(people.getJoundate().getTime()));
+            preparedStatement.setInt(10, people.getId());
 
             int rowsUpdated = preparedStatement.executeUpdate();
             if (rowsUpdated > 0) {
@@ -384,8 +384,8 @@ public class StatusTemp implements StatusDB {
 
 
     @Override
-    public void deleteStatus(int id) {
-        String query = "DELETE FROM status WHERE id = ?";
+    public void deletePeople(int id) {
+        String query = "DELETE FROM people WHERE id = ?";
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 

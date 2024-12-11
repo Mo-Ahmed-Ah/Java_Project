@@ -9,6 +9,6 @@ public interface TypesStatusDB {
 
     model.TypesStatus getStatusByTitle(String statustitle);
 
-    void addstatus(String statustitle);
-
+    void addStatus(String statustitle);
+    void removeStatus (int id);
 }

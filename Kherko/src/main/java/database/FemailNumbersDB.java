@@ -8,8 +8,7 @@ import java.util.List;
 
 public interface FemailNumbersDB {
 
-    void addingMail(int mailnumber , int id );
-    void addingFemail(int femailnumbers , int id );
+    void addingMailAndFemail(int mailnumber ,int femailnumber ,int id );
 
     void updateMail(int newmailnumbers , int id );
     void updateFemail(int newfemailnumbers , int id );

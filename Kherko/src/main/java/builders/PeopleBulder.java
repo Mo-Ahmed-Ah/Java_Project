@@ -1,10 +1,10 @@
 package builders;
 
-import model.Status;
+import model.People;
 
 import java.util.Date;
 
-public class StatusBulder {
+public class PeopleBulder {
     private  int id;
     private  String name;
     private  String nickname;
@@ -16,49 +16,49 @@ public class StatusBulder {
     private  String notes;
     private  Date joundate;
 
-    public StatusBulder id(int id) {
+    public PeopleBulder id(int id) {
         this.id = id;
         return this;
     }
-    public StatusBulder name(String name) {
+    public PeopleBulder name(String name) {
         this.name = name;
         return this;
     }
-    public StatusBulder nickname(String nickname) {
+    public PeopleBulder nickname(String nickname) {
         this.nickname = nickname;
         return this;
     }
-    public StatusBulder birthdate(Date birthdate) {
+    public PeopleBulder birthdate(Date birthdate) {
         this.birthdate = birthdate;
         return this;
     }
-    public StatusBulder location(String location) {
+    public PeopleBulder location(String location) {
         this.location = location;
         return this;
     }
-    public StatusBulder phone(String phone) {
+    public PeopleBulder phone(String phone) {
         this.phone = phone;
         return this;
     }
-    public StatusBulder gender(boolean gender) {
+    public PeopleBulder gender(boolean gender) {
         this.gender = gender;
         return this;
     }
-    public StatusBulder gid(long gid) {
+    public PeopleBulder gid(long gid) {
         this.gid = gid;
         return this;
     }
-    public StatusBulder notes(String notes) {
+    public PeopleBulder notes(String notes) {
         this.notes = notes;
         return this;
     }
-    public StatusBulder joundate(Date joundate) {
+    public PeopleBulder joundate(Date joundate) {
         this.joundate = joundate;
         return this;
     }
 
-    public Status build() {
-        return new Status(
+    public People build() {
+        return new People(
                 id,
                 name,
                 nickname,

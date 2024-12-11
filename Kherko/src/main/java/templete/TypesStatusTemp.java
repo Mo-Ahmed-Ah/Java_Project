@@ -11,8 +11,34 @@ import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
 
-public class TypesStatusTemp implements TypesStatusDB {@Override
-    public void addstatus(String statustitle) {
+public class TypesStatusTemp implements TypesStatusDB {
+    @Override
+    public void removeStatus(int id) {
+        Connection conn = DBConnection.getConnection();
+        if (conn == null) {
+            System.out.println("Failed to connect to the database.");
+            return;
+        }
+        String query = "DELETE FROM types_status WHERE id = (?)";
+        try (PreparedStatement preparedStatement = conn.prepareStatement(query)) {
+            preparedStatement.setInt(1, id);
+            int rowsInserted = preparedStatement.executeUpdate();
+            if (rowsInserted > 0) {
+                System.out.println("Status added successfully.");
+            }
+        } catch (SQLException se) {
+            se.printStackTrace();
+        } finally {
+            try {
+                conn.close();
+            } catch (SQLException se) {
+                se.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void addStatus(String statustitle) {
         Connection conn = DBConnection.getConnection();
         if (conn == null) {
             System.out.println("Failed to connect to the database.");

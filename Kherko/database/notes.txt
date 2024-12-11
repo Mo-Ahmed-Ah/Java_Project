@@ -1,66 +1,99 @@
-x1- Database name is kherko
-===================================================
-2- First table status
-    1- id ----- int ------- PRIMARY KEY ---------- AUTO_INCREMENT
-    2- name ----- VARCHAR ----- 50 ----- NOT NULL --------
-    3- nickname ----- VARCHAR ----- 30 ----- NULL --------
-    4- birthdate ----- DATE ----- NULL --------
-    5- location ----- VARCHAR ----- 100 ----- NULL --------
-    6- phone ----- VARCHAR ----- 15 ----- NULL --------
-    7- gender ----- Boolean ----- NOT NULL --------
-    8- gid ----- CHAR ----- 14 ----- NULL --------
-    9- notes ----- Text ----- NULL --------
-    10- joundate ----- Date ----- NULL --------
+1- Database name: kherko
 
-notes
-    1- If gender is 0 this mean the type is fmail, But it's 1 this mean the type is mail.
-    2- the gid main government id
+-----------------------------------------------------------------------
 
-functions
-    1- adding status (TRUE)
-    2- remove status (TRUE)
-    3- search by id (TRUE)
-    4- search by name (TRUE)
-    5- search by nickname (TRUE)
-    6- search by location (TRUE)
-    8- search by phone (TRUE)
-    9- search by gid
-    10- search by joundate (TRUE)
-    11- search by gender (TRUE)
-===================================================
-3- second table family_numbers
-    1- status_id ----- int ----- FOREIGN KEY ----- from status table ----- id column ----- on update CASCADE ----- on change CASCADE
-    2- mail ----- int ----- null
-    3- fmail ----- int ----- null
+2- First Table: people
 
-functions
-    1- adding mail
-    2- removing mail
-    3- adding femail
-    4- removing femail
-    5- update mail
-    6- update femail
-    7- get mail
-    8- get femail
-    9- git both
+    | Column Name   | Data Type   | Constraints                 | Description                            |
+    |---------------|-------------|-----------------------------|----------------------------------------|
+    | id            | int         | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the table        |
+    | name          | VARCHAR(50) | NOT NULL                    | Full name of the person                |
+    | nickname      | VARCHAR(30) | NULL                        | Nickname                               |
+    | birthdate     | DATE        | NULL                        | Date of birth                          |
+    | location      | VARCHAR(100)| NULL                        | Residence location                     |
+    | phone         | VARCHAR(15) | NULL                        | Phone number                           |
+    | gender        | BOOLEAN     | NOT NULL                    | 0 = fmail, 1 = mail                    |
+    | gid           | CHAR(14)    | NULL                        | Governmental ID number                 |
+    | notes         | TEXT        | NULL                        | Additional notes                       |
+    | joundate      | DATE        | NULL                        | Join date                              |
 
-===================================================
-4- third table types_status
-    1- id ----- int ------- PRIMARY KEY ---------- AUTO_INCREMENT
-    2- statustitle ------- VARCHAR ------- 30 ---------- NOT NULL
+Notes:
+    1. gender:
+       - If `0`, this means the type is fmail.
+       - If `1`, this means the type is mail.
+    2. gid: Represents the governmental ID number.
 
-functions
-    1- adding status type (true)
-    2- removing status type (true)
-    3- get all status (true)
-===================================================
-5- fourth table status_types
-    1- typestatus_id ----- int ----- NOT NULL ----- FOREIGN KEY ----- from types_status table ----- id column ----- on update CASCADE ----- on change CASCADE
-    2- status_id ----- int ----- NOT NULL ----- FOREIGN KEY ----- from status table ----- id column ----- on update CASCADE ----- on change CASCADE
+Functions:
+    1. Add status (TRUE)
+    2. Remove status (TRUE)
+    3. Search by id (TRUE)
+    4. Search by name (TRUE)
+    5. Search by nickname (TRUE)
+    6. Search by location (TRUE)
+    7. Search by phone (TRUE)
+    8. Search by gid
+    9. Search by join date (TRUE)
+    10. Search by gender (TRUE)
 
-functions
-    1- adding
-    2- remove
-    3- update
-    4- search by status type
-===================================================
+-----------------------------------------------------------------------
+
+3- Second Table: family_numbers
+
+    | Column Name   | Data Type   | Constraints              | Description                                |
+    |---------------|-------------|--------------------------|--------------------------------------------|
+    | people_id     | int         | FOREIGN KEY, NOT NULL    | Person identifier from `people` table      |
+    | mail          | int         | NULL                     | Number of males in the family              |
+    | fmail         | int         | NULL                     | Number of females in the family            |
+
+Relationships:
+    - people_id : References the `id` column from the `people` table with ON DELETE CASCADE and ON UPDATE CASCADE.
+
+Functions:
+    1. Add mail and fmail.
+    2. Remove mail.
+    3. Remove fmail.
+    4. Update mail.
+    5. Update fmail.
+    6. Retrieve mail.
+    7. Retrieve fmail.
+    8. Retrieve both together.
+
+-----------------------------------------------------------------------
+
+4- Third Table: types_status
+
+    | Column Name   | Data Type   | Constraints                 | Description                             |
+    |---------------|-------------|-----------------------------|-----------------------------------------|
+    | id            | int         | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the status        |
+    | statustitle   | VARCHAR(30) | NOT NULL                    | Status title                            |
+
+Functions:
+    1. Add status type (TRUE).
+    2. Remove status type (TRUE).
+    3. Retrieve all status types (TRUE).
+
+-----------------------------------------------------------------------
+
+5- Fourth Table: statue
+
+    | Column Name   | Data Type   | Constraints                 | Description                             |
+    |---------------|-------------|-----------------------------|-----------------------------------------|
+    | id            | int         | PRIMARY KEY, AUTO_INCREMENT | Unique identifier for the table         |
+    | typestatus_id | int         | FOREIGN KEY, NOT NULL       | References `types_status` table         |
+    | people_id     | int         | FOREIGN KEY, NOT NULL       | References `people` table               |
+
+Relationships:
+    - typestatus_id: References the `id` column from the `types_status` table with ON DELETE CASCADE and ON UPDATE CASCADE.
+    - people_id: References the `id` column from the `people` table with ON DELETE CASCADE and ON UPDATE CASCADE.
+
+Functions:
+    1. Add status.
+    2. Remove status.
+    3. Update status.
+    4. Search by status type.
+
+---
+
+6- Relation Functions
+    1. Retrieve data from the `family_numbers` table where `status_id` matches the `id` from the `statue` table.
+    2. Retrieve status types from the `types_status` table where `statue.typestatus_id` equals `types_status.id` and `statue.people_id` equals `people.id`.

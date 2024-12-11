@@ -1,10 +1,10 @@
 package model;
 
-import builders.StatusBulder;
+import builders.PeopleBulder;
 
 import java.util.Date;
 
-public class Status {
+public class People {
     private  int id;
     private  String name;
     private  String nickname;
@@ -16,11 +16,11 @@ public class Status {
     private  String notes;
     private  Date joundate;
 
-    public Status(){
+    public People(){
 
     }
 
-    public Status(int id , String name , String nickname , Date birthdate , String location , String phone , boolean gender, long gid , String notes ,Date joundate ) {
+    public People(int id , String name , String nickname , Date birthdate , String location , String phone , boolean gender, long gid , String notes , Date joundate ) {
         this.id = id;
         this.name = name;
         this.nickname = nickname;
@@ -136,5 +136,5 @@ public class Status {
     public void setGender(String s) {
     }
 
-    public static StatusBulder builder(){return new StatusBulder();}
+    public static PeopleBulder builder(){return new PeopleBulder();}
 }
