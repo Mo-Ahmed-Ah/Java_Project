@@ -71,13 +71,15 @@ Stores system users (staff and admins) for authentication and authorization.
 ## ⚙ Setting Up the Database
 1. Create the database:
    sql
+   ```
    CREATE DATABASE kherko;
-
-2. Select the database:
+   ```
+3. Select the database:
    sql
+   ```
    USE kherko;
-
-3. Define tables based on the schema above.
+   ```
+5. Define tables based on the schema above.
 
 ## 🛠 Hibernate Integration with MySQL
 - Configure *Hibernate ORM* to map Java entities to database tables.
