@@ -83,7 +83,6 @@ Stores system users (staff and admins) for authentication and authorization.
 - Configure *Hibernate ORM* to map Java entities to database tables.
 - Use hibernate.cfg.xml for database connection setup in the Java project.
 
-
 ## 🗂 Project Structure (Maven)
 Below is the structure of the project when using Maven for dependency management and building the project.
 
@@ -95,49 +94,41 @@ charity-association
 │   │   ├── java
 │   │   │   └── com
 │   │   │       └── charity
-│   │   │           ├── model
+│   │   │           ├── model  # Contains entity classes representing database tables
 │   │   │           │   ├── Beneficiary.java
 │   │   │           │   ├── Donor.java
 │   │   │           │   ├── Donation.java
 │   │   │           │   └── User.java
-│   │   │           ├── dao
+│   │   │           ├── dao  # Data Access Object (DAO) layer for database interaction
 │   │   │           │   ├── BeneficiaryDAO.java
 │   │   │           │   ├── DonorDAO.java
 │   │   │           │   ├── DonationDAO.java
 │   │   │           │   └── UserDAO.java
-│   │   │           ├── util
+│   │   │           ├── util  # Utility classes such as database connection handlers
 │   │   │           │   └── DatabaseConnection.java
-│   │   │           └── Main.java
-│   │   └── resources
+│   │   │           └── Main.java  # Entry point of the application
+│   │   └── resources  # Contains configuration files
 │   │       └── database.properties
 │   └── test
 │       ├── java
 │       │   └── com
 │       │       └── charity
-│       │           └── test
+│       │           └── test  # Unit tests for DAO classes
 │       │               ├── BeneficiaryDAOTest.java
 │       │               ├── DonorDAOTest.java
 │       │               └── DonationDAOTest.java
 │       └── resources
 │           └── test-connection.properties
-├── pom.xml
+├── pom.xml  # Maven build file containing dependencies
 └── README.md
 ```
-
-### Explanation of the Project Structure:
-1. src/main/java/com/charity/model: Contains Java classes that map to the database tables (e.g., Beneficiary,        Donor, Donation, User).
-2. src/main/java/com/charity/dao: Contains classes responsible for interacting with the database (e.g.,
-   BeneficiaryDAO, DonorDAO).
-3. src/main/java/com/charity/util: Contains utility classes like DatabaseConnection.java for database connections.
-4. src/test/java/com/charity/test: Contains unit tests for the DAO classes.
-5. src/main/resources/database.properties: Configuration file for database connection properties.
-6. pom.xml: Maven build file that manages dependencies and build configurations.
 
 ## 📌 Conclusion
 This database is structured to efficiently manage charity operations, ensuring seamless tracking of beneficiaries, donors, and donations. Future expansions can include additional modules like reports and notifications.
 
 ## Notes:
-1. pom.xml: In the pom.xml file, you will define dependencies such as JDBC and MySQL, along with build               configurations for your Maven project.
-2. Project Structure: The project is organized using the standard Maven project structure, which facilitates         dependency management and testing.
+1. **pom.xml:** Defines dependencies such as JDBC, MySQL, and Hibernate, along with build configurations.
+2. **Project Structure:** Organized using the standard Maven structure for easy dependency management and testing.
 
-## If you need additional details about pom.xml or how to set up the dependencies, feel free to ask!
+## If you need additional details about pom.xml or how to set up the dependencies, feel free to ask!
+
