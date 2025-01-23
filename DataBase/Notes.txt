@@ -8,8 +8,8 @@ Database Name: kherko
     | birthdate   | DATE         | NULL	                                 |
     | location	  | VARCHAR(100) | NULL	                                 |
     | phone	      | VARCHAR(15)	 | NULL	                                 |
-    | gender	  | BOOLEAN	     | NOT NULL	                             |
-    | gid	      | CHAR(1)	     | NULL	                                 |
+    | gender	  | CHAR(1)	     | NOT NULL	                             |
+    | gid	      | CHAR(14)	 | NULL	                                 |
     | notes       | TEXT	     | NULL	                                 |
     | joindate	  | DATE	     | NULL	                                 |
 
@@ -26,12 +26,13 @@ Notes:
          Delete a person    |False|
 
     Search for a person using:
-        id          |False|
+        gitAll      |Create in Interface| git one
+        id          |Create in Interface| git one
         name        |False|
         nickname    |False|
         location    |False|
         phone       |False|
-        gid         |False|
+        gid         |Create in Interface| git one
         joindate    |False|
         gender      |False|
 
