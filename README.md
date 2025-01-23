@@ -96,6 +96,9 @@ Below is the structure of the project when using Maven for dependency management
 
 ```
 charity-association
+├── DataBase
+|   ├── Notes.txt
+|   ├── kherko.sql
 │
 ├── src
 │   ├── main
