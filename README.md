@@ -122,18 +122,9 @@ charity-association
 │   │   │           ├── util  # Utility classes such as database connection handlers
 │   │   │           │   └── DatabaseConnection.java
 │   │   │           └── Main.java  # Entry point of the application
-│   │   └── resources  # Contains configuration files
-│   │       └── database.properties
+│   │   └── resources
 │   └── test
-│       ├── java
-│       │   └── com
-│       │       └── charity
-│       │           └── test  # Unit tests for DAO classes
-│       │               ├── BeneficiaryDAOTest.java
-│       │               ├── DonorDAOTest.java
-│       │               └── DonationDAOTest.java
-│       └── resources
-│           └── test-connection.properties
+│       └── java
 ├── pom.xml  # Maven build file containing dependencies
 └── README.md
 ```
