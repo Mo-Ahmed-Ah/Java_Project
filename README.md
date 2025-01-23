@@ -83,6 +83,14 @@ Stores system users (staff and admins) for authentication and authorization.
 - Configure *Hibernate ORM* to map Java entities to database tables.
 - Use hibernate.cfg.xml for database connection setup in the Java project.
 
+## 🎨 Graphical User Interface (GUI)
+To enhance usability, the project includes a graphical user interface (GUI) using **JavaFX** or **Swing**. The GUI will include:
+- **Main Dashboard:** Overview of donations, beneficiaries, and donors.
+- **Donor Management:** Add, update, and remove donors.
+- **Beneficiary Management:** Manage beneficiaries and their details.
+- **Donation Tracking:** Log donations and link them to donors and beneficiaries.
+- **User Authentication:** Secure login system for staff and admins.
+
 ## 🗂 Project Structure (Maven)
 Below is the structure of the project when using Maven for dependency management and building the project.
 
@@ -104,6 +112,13 @@ charity-association
 │   │   │           │   ├── DonorDAO.java
 │   │   │           │   ├── DonationDAO.java
 │   │   │           │   └── UserDAO.java
+│   │   │           ├── gui  # Graphical User Interface components
+│   │   │           │   ├── MainDashboard.java
+│   │   │           │   ├── DonorForm.java
+│   │   │           │   ├── BeneficiaryForm.java
+│   │   │           │   ├── DonationForm.java
+│   │   │           │   ├── LoginForm.java
+│   │   │           │   └── AdminPanel.java
 │   │   │           ├── util  # Utility classes such as database connection handlers
 │   │   │           │   └── DatabaseConnection.java
 │   │   │           └── Main.java  # Entry point of the application
@@ -124,11 +139,11 @@ charity-association
 ```
 
 ## 📌 Conclusion
-This database is structured to efficiently manage charity operations, ensuring seamless tracking of beneficiaries, donors, and donations. Future expansions can include additional modules like reports and notifications.
+This database is structured to efficiently manage charity operations, ensuring seamless tracking of beneficiaries, donors, and donations. The inclusion of a GUI makes the system more user-friendly and accessible for staff and administrators.
 
 ## Notes:
-1. **pom.xml:** Defines dependencies such as JDBC, MySQL, and Hibernate, along with build configurations.
+1. **pom.xml:** Defines dependencies such as JDBC, MySQL, Hibernate, and JavaFX/Swing.
 2. **Project Structure:** Organized using the standard Maven structure for easy dependency management and testing.
 
-## If you need additional details about pom.xml or how to set up the dependencies, feel free to ask!
+## If you need additional details about GUI implementation or specific functionalities, feel free to ask!
 
