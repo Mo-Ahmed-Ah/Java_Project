@@ -14,11 +14,13 @@ public class People {
     private String gid;
     private String notes;
     private Date joindate;
+    private int familynumbers;
+    private String statustitle;
 
     public People() {
     }
 
-    public People(String name, String nickname, Date birthdate, String location, String phone, String gender, String gid, String notes, Date joindate) {
+    public People(String name, String nickname, Date birthdate, String location, String phone, String gender, String gid, String notes, Date joindate , int familynumbers , String statustitle) {
         this.name = name;
         this.nickname = nickname;
         this.birthdate = birthdate;
@@ -28,6 +30,8 @@ public class People {
         this.gid = gid;
         this.notes = notes;
         this.joindate = joindate;
+        this.familynumbers = familynumbers;
+        this.statustitle = statustitle;
     }
 
     public int getId() {
@@ -109,4 +113,21 @@ public class People {
     public void setJoindate(Date joindate) {
         this.joindate = joindate;
     }
+
+    public int getFamilynumbers() {
+        return familynumbers;
+    }
+
+    public void setFamilynumbers(int familynumbers) {
+        this.familynumbers = familynumbers;
+    }
+
+    public String getStatustitle() {
+        return statustitle;
+    }
+
+    public void setStatustitle(String statustitle) {
+        this.statustitle = statustitle;
+    }
+
 }

@@ -22,19 +22,19 @@ Notes:
         Represents the national ID or government identifier of the person.
 
     Available Functions:
-         Add a new person   |False|
-         Delete a person    |False|
+         Add a new person   |Create in Interface| git one
+         Delete a person    |Create in Interface| git one
 
     Search for a person using:
-        gitAll      |Create in Interface| git one
-        id          |Create in Interface| git one
-        name        |False|
-        nickname    |False|
-        location    |False|
-        phone       |False|
-        gid         |Create in Interface| git one
-        joindate    |False|
-        gender      |False|
+        gitAll      |Create in Interface| get all
+        id          |Create in Interface| get one
+        name        |Create in Interface| get all with same name
+        nickname    |Create in Interface| get all with same nickname
+        location    |Create in Interface| get all with same location
+        phone       |Create in Interface| get one
+        gid         |Create in Interface| get one
+        joindate    |Create in Interface| get all joined in same time
+        gender      |Create in Interface| get ait all with same gender
 
 __________________________________________________________________________________________
 2- Table: family_numbers

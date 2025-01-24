@@ -10,8 +10,6 @@ public interface PeopleDao {
 
     People getById(int id); // Return person by ID
 
-    People getByGid(String gid); // Return person by GID
-
     List<People> getByName(String name); // Return people by Name
 
     List<People> getByNickname(String nickname); // Return people by Nickname
@@ -20,7 +18,9 @@ public interface PeopleDao {
 
     People getByPhone(String phone); // Return person by Phone
 
-    List<People> getByGender(char gender); //  Return people by Gender
+    People getByGid(String gid); // Return person by GID
+
+    List<People> getByGender(String gender); //  Return people by Gender
 
     List<People> getByJoinDate(String joinDate); // Return person by Join Date
 
