@@ -1,143 +1,118 @@
-# Charity Association Database Design
+# <span style="color:#F39C12;">Kherko Database Documentation</span>
 
-## 📌 Introduction
-This database is designed for a charity association to manage beneficiaries, donors, and donations efficiently. It utilizes *MySQL* as the database management system and *JDBC* for database interaction in a Java desktop application.
+## 1. Table: <span style="color:#3498DB;">`people`</span>
 
-## 📋 Database Tables
+This table stores the basic information of individuals.
 
-### 🏠 Beneficiaries Table (beneficiaries)
-Stores information about individuals receiving assistance.
+### Columns:
+| Column Name    | Data Type      | Constraints                        |
+|----------------|----------------|------------------------------------|
+| <span style="color:#F39C12;">**id**</span>      | <span style="color:#9B59B6;">int</span>           | <span style="color:#1ABC9C;">PRIMARY KEY, AUTO_INCREMENT</span>        |
+| <span style="color:#F39C12;">**name**</span>    | <span style="color:#9B59B6;">VARCHAR(50)</span>   | <span style="color:#1ABC9C;">NOT NULL</span>                            |
+| <span style="color:#F39C12;">**nickname**</span>| <span style="color:#9B59B6;">VARCHAR(30)</span>   | <span style="color:#95A5A6;">NULL</span>                                |
+| <span style="color:#F39C12;">**birthdate**</span>| <span style="color:#9B59B6;">DATE</span>         | <span style="color:#95A5A6;">NULL</span>                                |
+| <span style="color:#F39C12;">**location**</span>| <span style="color:#9B59B6;">VARCHAR(100)</span>  | <span style="color:#95A5A6;">NULL</span>                                |
+| <span style="color:#F39C12;">**phone**</span>   | <span style="color:#9B59B6;">VARCHAR(15)</span>   | <span style="color:#95A5A6;">NULL</span>                                |
+| <span style="color:#F39C12;">**gender**</span>  | <span style="color:#9B59B6;">CHAR(1)</span>       | <span style="color:#1ABC9C;">NOT NULL</span>                            |
+| <span style="color:#F39C12;">**gid**</span>     | <span style="color:#9B59B6;">CHAR(14)</span>      | <span style="color:#95A5A6;">NULL</span>                                |
+| <span style="color:#F39C12;">**notes**</span>   | <span style="color:#9B59B6;">TEXT</span>          | <span style="color:#95A5A6;">NULL</span>                                |
+| <span style="color:#F39C12;">**joindate**</span>| <span style="color:#9B59B6;">DATE</span>          | <span style="color:#95A5A6;">NULL</span>                                |
 
-| Column         | Type         | Constraints                     | Description |
-|----------------|--------------|---------------------------------|-------------|
-| id           | INT          | PRIMARY KEY, AUTO_INCREMENT     | Beneficiary ID |
-| name         | VARCHAR(100) | NOT NULL                        | Full name |
-| age          | INT          | NULL                            | Age |
-| needs        | TEXT         | NULL                            | Needs description |
-| social_status| VARCHAR(50)  | NULL                            | Social status |
-| phone        | VARCHAR(20)  | NULL                            | Contact number |
-| address      | TEXT         | NULL                            | Address |
-| registration_date | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP    | Date registered |
+### Notes:
+- <span style="color:#E74C3C;">**gender**</span>: `F` = Female, `M` = Male
+- <span style="color:#E74C3C;">**gid**</span>: Represents the national ID or government identifier of the person.
 
----
-
-### 🤝 Donors Table (donors)
-Stores information about individuals or organizations making donations.
-
-| Column         | Type         | Constraints                     | Description |
-|----------------|--------------|---------------------------------|-------------|
-| id           | INT          | PRIMARY KEY, AUTO_INCREMENT     | Donor ID |
-| name         | VARCHAR(100) | NOT NULL                        | Donor name |
-| phone        | VARCHAR(20)  | NULL                            | Contact number |
-| email        | VARCHAR(100) | NULL                            | Email address |
-| donation_type| VARCHAR(50)  | NULL                            | Type of donation (money, food, clothes, etc.) |
-| address      | TEXT         | NULL                            | Address |
-| registration_date | TIMESTAMP | DEFAULT CURRENT_TIMESTAMP    | Date registered |
-
----
-
-### 💰 Donations Table (donations)
-Tracks donations and links donors to beneficiaries.
-
-| Column         | Type         | Constraints                     | Description |
-|----------------|--------------|---------------------------------|-------------|
-| id           | INT          | PRIMARY KEY, AUTO_INCREMENT     | Donation ID |
-| donor_id     | INT          | FOREIGN KEY REFERENCES donors(id) ON DELETE CASCADE | Donor reference |
-| beneficiary_id | INT        | FOREIGN KEY REFERENCES beneficiaries(id) ON DELETE SET NULL | Beneficiary reference |
-| amount       | DECIMAL(10,2)| NULL                            | Donation amount (if monetary) |
-| donation_type| VARCHAR(50)  | NULL                            | Type of donation |
-| description  | TEXT         | NULL                            | Additional notes |
-| donation_date| TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP      | Date of donation |
+### Available Functions:
+- <span style="color:#2ECC71;">**Add a new person**</span>: ✅ Implemented
+- <span style="color:#2ECC71;">**Delete a person**</span>: ✅ Implemented
+- <span style="color:#F39C12;">**Search for a person using**</span>:
+  - <span style="color:#3498DB;">`id`</span>: ✅ Get one
+  - <span style="color:#3498DB;">`name`</span>: ✅ Get all with same name
+  - <span style="color:#3498DB;">`nickname`</span>: ✅ Get all with same nickname
+  - <span style="color:#3498DB;">`location`</span>: ✅ Get all with same location
+  - <span style="color:#3498DB;">`phone`</span>: ✅ Get one
+  - <span style="color:#3498DB;">`gid`</span>: ✅ Get one
+  - <span style="color:#3498DB;">`joindate`</span>: ✅ Get all joined at the same time
+  - <span style="color:#3498DB;">`gender`</span>: ✅ Get all with the same gender
 
 ---
 
-### 🔐 Users Table (users)
-Stores system users (staff and admins) for authentication and authorization.
+## 2. Table: <span style="color:#3498DB;">`family_numbers`</span>
 
-| Column         | Type         | Constraints                     | Description |
-|----------------|--------------|---------------------------------|-------------|
-| id           | INT          | PRIMARY KEY, AUTO_INCREMENT     | User ID |
-| username     | VARCHAR(50)  | UNIQUE, NOT NULL                | Login username |
-| password     | VARCHAR(255) | NOT NULL                        | Encrypted password |
-| role         | ENUM('admin', 'staff') | NOT NULL              | User role (admin/staff) |
-| created_at   | TIMESTAMP    | DEFAULT CURRENT_TIMESTAMP       | Account creation date |
+This table keeps track of family members for each individual.
+
+### Columns:
+| Column Name  | Data Type      | Constraints                     |
+|--------------|----------------|---------------------------------|
+| <span style="color:#F39C12;">**people_id**</span>| <span style="color:#9B59B6;">int</span>        | <span style="color:#1ABC9C;">FOREIGN KEY, NOT NULL</span>           |
+| <span style="color:#F39C12;">**male**</span>     | <span style="color:#9B59B6;">int</span>        | <span style="color:#95A5A6;">NULL</span>                            |
+| <span style="color:#F39C12;">**female**</span>   | <span style="color:#9B59B6;">int</span>        | <span style="color:#95A5A6;">NULL</span>                            |
+
+### Relationships:
+- `people_id` is linked to the `id` column in the `people` table with <span style="color:#E74C3C;">`ON DELETE CASCADE`</span> and <span style="color:#E74C3C;">`ON UPDATE CASCADE`</span>.
+
+### Available Functions: ❌ Not Implemented
+- Add male and female count
+- Update male count
+- Update female count
+- Delete male count
+- Delete female count
+- Retrieve male count
+- Retrieve female count
+- Retrieve both male and female count
 
 ---
 
-## 🔗 Table Relationships
-- **donations** table links **donors** and **beneficiaries**.
-- **users** table is independent for managing authentication.
+## 3. Table: <span style="color:#3498DB;">`types_status`</span>
 
-## ⚙ Setting Up the Database
-1. Create the database:
-   ```sql
-   CREATE DATABASE kherko;
-   ```
-2. Select the database:
-   ```sql
-   USE kherko;
-   ```
-3. Define tables based on the schema above.
+This table defines different status types.
 
-## 🛠 Hibernate Integration with MySQL
-- Configure *Hibernate ORM* to map Java entities to database tables.
-- Use hibernate.cfg.xml for database connection setup in the Java project.
+### Columns:
+| Column Name  | Data Type      | Constraints                      |
+|--------------|----------------|----------------------------------|
+| <span style="color:#F39C12;">**id**</span>       | <span style="color:#9B59B6;">int</span>         | <span style="color:#1ABC9C;">PRIMARY KEY, AUTO_INCREMENT</span>      |
+| <span style="color:#F39C12;">**statustitle**</span> | <span style="color:#9B59B6;">VARCHAR(30)</span> | <span style="color:#1ABC9C;">NOT NULL</span>                         |
 
-## 🎨 Graphical User Interface (GUI)
-To enhance usability, the project includes a graphical user interface (GUI) using **JavaFX** or **Swing**. The GUI will include:
-- **Main Dashboard:** Overview of donations, beneficiaries, and donors.
-- **Donor Management:** Add, update, and remove donors.
-- **Beneficiary Management:** Manage beneficiaries and their details.
-- **Donation Tracking:** Log donations and link them to donors and beneficiaries.
-- **User Authentication:** Secure login system for staff and admins.
+### Available Functions: ❌ Not Implemented
+- Add a new status type
+- Delete a status type
+- Retrieve all status types
 
-## 🗂 Project Structure (Maven)
-Below is the structure of the project when using Maven for dependency management and building the project.
+---
 
-```
-charity-association
-├── DataBase
-|   ├── Notes.txt
-|   ├── kherko.sql
-│
-├── src
-│   ├── main
-│   │   ├── java
-│   │   │   └── com
-│   │   │       └── charity
-│   │   │           ├── model  # Contains entity classes representing database tables
-│   │   │           │   ├── Beneficiary.java
-│   │   │           │   ├── Donor.java
-│   │   │           │   ├── Donation.java
-│   │   │           │   └── User.java
-│   │   │           ├── dao  # Data Access Object (DAO) layer for database interaction
-│   │   │           │   ├── BeneficiaryDAO.java
-│   │   │           │   ├── DonorDAO.java
-│   │   │           │   ├── DonationDAO.java
-│   │   │           │   └── UserDAO.java
-│   │   │           ├── gui  # Graphical User Interface components
-│   │   │           │   ├── MainDashboard.java
-│   │   │           │   ├── DonorForm.java
-│   │   │           │   ├── BeneficiaryForm.java
-│   │   │           │   ├── DonationForm.java
-│   │   │           │   ├── LoginForm.java
-│   │   │           │   └── AdminPanel.java
-│   │   │           ├── util  # Utility classes such as database connection handlers
-│   │   │           │   └── DatabaseConnection.java
-│   │   │           └── Main.java  # Entry point of the application
-│   │   └── resources
-│   └── test
-│       └── java
-├── pom.xml  # Maven build file containing dependencies
-└── README.md
-```
+## 4. Table: <span style="color:#3498DB;">`statue`</span>
 
-## 📌 Conclusion
-This database is structured to efficiently manage charity operations, ensuring seamless tracking of beneficiaries, donors, and donations. The inclusion of a GUI makes the system more user-friendly and accessible for staff and administrators.
+This table associates people with status types.
 
-## Notes:
-1. **pom.xml:** Defines dependencies such as JDBC, MySQL, Hibernate, and JavaFX/Swing.
-2. **Project Structure:** Organized using the standard Maven structure for easy dependency management and testing.
+### Columns:
+| Column Name    | Data Type      | Constraints                     |
+|----------------|----------------|---------------------------------|
+| <span style="color:#F39C12;">**id**</span>         | <span style="color:#9B59B6;">int</span>         | <span style="color:#1ABC9C;">PRIMARY KEY, AUTO_INCREMENT</span>      |
+| <span style="color:#F39C12;">**typestatus_id**</span>| <span style="color:#9B59B6;">int</span>         | <span style="color:#1ABC9C;">FOREIGN KEY, NOT NULL</span>            |
+| <span style="color:#F39C12;">**people_id**</span>  | <span style="color:#9B59B6;">int</span>         | <span style="color:#1ABC9C;">FOREIGN KEY, NOT NULL</span>            |
 
-## If you need additional details about GUI implementation or specific functionalities, feel free to ask!
+### Relationships:
+- `typestatus_id` is linked to the `id` column in the `types_status` table with <span style="color:#E74C3C;">`ON DELETE CASCADE`</span> and <span style="color:#E74C3C;">`ON UPDATE CASCADE`</span>.
+- `people_id` is linked to the `id` column in the `people` table with <span style="color:#E74C3C;">`ON DELETE CASCADE`</span> and <span style="color:#E74C3C;">`ON UPDATE CASCADE`</span>.
+
+### Available Functions: ❌ Not Implemented
+- Assign a status to a person
+- Delete a status
+- Update a status
+- Search for people by status type
+
+---
+
+## Additional Notes:
+- **You must create the `get last id` function** because it is crucial for generating a new person's ID.
+- **Table `family_numbers`**:
+  - It is recommended to add a primary key (`id`) to the `family_numbers` table for clarity and easier identification of each entry.
+  - **People_id** should ideally be unique within the context of the table to avoid duplicate entries for the same person.
+- **Table `types_status`**:
+  - Clarified that the column `statustitle` defines a status type.
+- **Table `statue`**:
+  - The relationship between `people` and `types_status` is established correctly, but it may be helpful to note how the status changes over time.
+  - Additional clarification regarding the update and deletion rules for statuses could be useful.
+
+---
 
