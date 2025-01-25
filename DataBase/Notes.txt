@@ -1,17 +1,22 @@
+Documentation
+    any person has got id (Unique) , name , nickname , phone , gid number and location
+        the id filed is Unique and auto increment that mean this filed is primary key.
+        the name filed can't set null and this filed upper length is 50 characters,someone
+
 Database Name: kherko
 1- Table: people
 
-    | Column Name | Data Type	 |               Constraints             |
-    | id	      | int	         | PRIMARY KEY , AUTO_INCREMENT	, Unique |
-    | name	      | VARCHAR(50)	 | NOT NULL	                             |
-    | nickname    | VARCHAR(30)	 | NULL	                                 |
-    | birthdate   | DATE         | NULL	                                 |
-    | location	  | VARCHAR(100) | NULL	                                 |
-    | phone	      | VARCHAR(15)	 | NULL	                                 |
-    | gender	  | CHAR(1)	     | NOT NULL	                             |
-    | gid	      | CHAR(14)	 | NULL	                                 |
-    | notes       | TEXT	     | NULL	                                 |
-    | joindate	  | DATE	     | NULL	                                 |
+    | Column Name | Data Type	 |          Constraints           |
+    | id	      | int	         | PRIMARY KEY , AUTO_INCREMENT	  |
+    | name	      | VARCHAR(50)	 | NOT NULL	                      |
+    | nickname    | VARCHAR(30)	 | NULL	                          |
+    | birthdate   | DATE         | NULL	                          |
+    | location	  | VARCHAR(100) | NULL	                          |
+    | phone	      | VARCHAR(15)	 | NULL	                          |
+    | gender	  | CHAR(1)	     | NOT NULL	                      |
+    | gid	      | CHAR(14)	 | NULL	                          |
+    | notes       | TEXT	     | NULL	                          |
+    | joindate	  | DATE	     | NULL	                          |
 
 Notes:
 
@@ -95,3 +100,7 @@ ________________________________________________________________________________
          Search for people by status type   |False|
 
 __________________________________________________________________________________________
+
+More notes:
+    you most be creating the get last id function because you need that is very important to generat id with new person.
+     
