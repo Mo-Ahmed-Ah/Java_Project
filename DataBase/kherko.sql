@@ -1,45 +1,56 @@
--- إنشاء قاعدة البيانات
-CREATE DATABASE KherkoDB;
+-- Create DataBase
+CREATE DATABASE IF NOT EXISTS Kherko;
 
--- استخدام قاعدة البيانات
-USE KherkoDB;
+-- Using DataBase
+USE Kherko ;
 
--- 1. إنشاء جدول people
-CREATE TABLE people (
+-- Status Table
+CREATE TABLE IF NOT EXISTS Status(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+	stat_name VARCHAR(50) NOT NULL
+);
+
+-- People table
+CREATE TABLE IF NOT EXISTS People (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(50) NOT NULL,
-    nickname VARCHAR(30),
-    birthdate DATE,
-    location VARCHAR(100),
+    fname VARCHAR(50) NOT NULL,
+    lname VARCHAR(50) NOT NULL,
+    nickname VARCHAR(50),
+    city VARCHAR(50),
+    street VARCHAR(100),
     phone VARCHAR(15),
-    gender CHAR(1) NOT NULL,   -- F = Female, M = Male
+    gender CHAR(1) NOT NULL,   
     gid CHAR(14),
     notes TEXT,
-    joindate DATE
+    joindate Date DEFAULT CURRENT_TIMESTAMP
 );
 
--- 2. إنشاء جدول family_numbers
-CREATE TABLE family_numbers (
-    people_id INT,
-    male INT,
-    female INT,
-    FOREIGN KEY (people_id) REFERENCES people(id) 
-    ON DELETE CASCADE ON UPDATE CASCADE
+
+-- People status table
+
+CREATE TABLE IF NOT EXISTS People_Status (
+    people_ID INT,
+    stat_ID INT,
+	FOREIGN KEY (people_ID) REFERENCES People(id) ON DELETE CASCADE,
+    FOREIGN KEY (stat_ID) REFERENCES Status(id) ON DELETE CASCADE,
+    PRIMARY KEY (people_ID, stat_ID)
 );
 
--- 3. إنشاء جدول types_status
-CREATE TABLE types_status (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    statustitle VARCHAR(30) NOT NULL
+--  Type of helping taple
+CREATE TABLE IF NOT EXISTS Type_of_helping(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    helping_name character(250)
 );
 
--- 4. إنشاء جدول statue
-CREATE TABLE statue (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    typestatus_id INT,
-    people_id INT,
-    FOREIGN KEY (typestatus_id) REFERENCES types_status(id) 
-    ON DELETE CASCADE ON UPDATE CASCADE,
-    FOREIGN KEY (people_id) REFERENCES people(id) 
-    ON DELETE CASCADE ON UPDATE CASCADE
+
+-- Assistance table
+CREATE TABLE IF NOT EXISTS Assistances(
+	id INT AUTO_INCREMENT PRIMARY KEY,
+    people_ID INT NOT NULL,
+    helping_ID INT NOT NULL,
+    notes TEXT,
+    Assistance_date Date DEFAULT CURRENT_TIMESTAMP,
+    value character(100) NOT NULL,
+    FOREIGN KEY (people_ID) REFERENCES People(id) ON DELETE CASCADE,
+    FOREIGN KEY (helping_ID) REFERENCES Type_of_helping(id) ON DELETE CASCADE
 );
