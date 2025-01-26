@@ -1,118 +1,156 @@
-# <span style="color:#F39C12;">Kherko Database Documentation</span>
+# Kherko Database Documentation
 
-## 1. Table: <span style="color:#3498DB;">`people`</span>
+## Overview
 
-This table stores the basic information of individuals.
+Kherko is a structured database designed to manage people, their statuses, and various assistance programs. It consists of five interconnected tables: `Status`, `People`, `People_Status`, `Type_of_helping`, and `Assistances`. These tables work together to store and manage information about individuals, their statuses, and the assistance they receive.
 
-### Columns:
-| Column Name    | Data Type      | Constraints                        |
-|----------------|----------------|------------------------------------|
-| <span style="color:#F39C12;">**id**</span>      | <span style="color:#9B59B6;">int</span>           | <span style="color:#1ABC9C;">PRIMARY KEY, AUTO_INCREMENT</span>        |
-| <span style="color:#F39C12;">**name**</span>    | <span style="color:#9B59B6;">VARCHAR(50)</span>   | <span style="color:#1ABC9C;">NOT NULL</span>                            |
-| <span style="color:#F39C12;">**nickname**</span>| <span style="color:#9B59B6;">VARCHAR(30)</span>   | <span style="color:#95A5A6;">NULL</span>                                |
-| <span style="color:#F39C12;">**birthdate**</span>| <span style="color:#9B59B6;">DATE</span>         | <span style="color:#95A5A6;">NULL</span>                                |
-| <span style="color:#F39C12;">**location**</span>| <span style="color:#9B59B6;">VARCHAR(100)</span>  | <span style="color:#95A5A6;">NULL</span>                                |
-| <span style="color:#F39C12;">**phone**</span>   | <span style="color:#9B59B6;">VARCHAR(15)</span>   | <span style="color:#95A5A6;">NULL</span>                                |
-| <span style="color:#F39C12;">**gender**</span>  | <span style="color:#9B59B6;">CHAR(1)</span>       | <span style="color:#1ABC9C;">NOT NULL</span>                            |
-| <span style="color:#F39C12;">**gid**</span>     | <span style="color:#9B59B6;">CHAR(14)</span>      | <span style="color:#95A5A6;">NULL</span>                                |
-| <span style="color:#F39C12;">**notes**</span>   | <span style="color:#9B59B6;">TEXT</span>          | <span style="color:#95A5A6;">NULL</span>                                |
-| <span style="color:#F39C12;">**joindate**</span>| <span style="color:#9B59B6;">DATE</span>          | <span style="color:#95A5A6;">NULL</span>                                |
+## Database Schema
 
-### Notes:
-- <span style="color:#E74C3C;">**gender**</span>: `F` = Female, `M` = Male
-- <span style="color:#E74C3C;">**gid**</span>: Represents the national ID or government identifier of the person.
+### 1. Table: Status
 
-### Available Functions:
-- <span style="color:#2ECC71;">**Add a new person**</span>: ✅ Implemented
-- <span style="color:#2ECC71;">**Delete a person**</span>: ✅ Implemented
-- <span style="color:#F39C12;">**Search for a person using**</span>:
-  - <span style="color:#3498DB;">`id`</span>: ✅ Get one
-  - <span style="color:#3498DB;">`name`</span>: ✅ Get all with same name
-  - <span style="color:#3498DB;">`nickname`</span>: ✅ Get all with same nickname
-  - <span style="color:#3498DB;">`location`</span>: ✅ Get all with same location
-  - <span style="color:#3498DB;">`phone`</span>: ✅ Get one
-  - <span style="color:#3498DB;">`gid`</span>: ✅ Get one
-  - <span style="color:#3498DB;">`joindate`</span>: ✅ Get all joined at the same time
-  - <span style="color:#3498DB;">`gender`</span>: ✅ Get all with the same gender
+Stores different status types that can be assigned to individuals.
+
+| Column Name | Data Type   | Constraints                 |
+| ----------- | ----------- | --------------------------- |
+| id          | INT         | PRIMARY KEY, AUTO_INCREMENT |
+| stat_name   | VARCHAR(50) | NOT NULL                    |
+
+**Available Functions:**
+
+- Add a new status: ❌ Not implemented
+- Delete a status: ❌ Not implemented
+- Retrieve all status types: ❌ Not implemented
+
+### 2. Table: People
+
+Stores details about individuals, including their names, contact information, and other personal details.
+
+| Column Name | Data Type    | Constraints                 |
+| ----------- | ------------ | --------------------------- |
+| id          | INT          | PRIMARY KEY, AUTO_INCREMENT |
+| fname       | VARCHAR(50)  | NOT NULL                    |
+| lname       | VARCHAR(50)  | NOT NULL                    |
+| nickname    | VARCHAR(50)  | NULL                        |
+| city        | VARCHAR(50)  | NULL                        |
+| street      | VARCHAR(100) | NULL                        |
+| phone       | VARCHAR(15)  | NULL                        |
+| gender      | CHAR(1)      | NOT NULL                    |
+| gid         | CHAR(14)     | NULL                        |
+| notes       | TEXT         | NULL                        |
+| joindate    | DATE         | DEFAULT CURRENT_TIMESTAMP   |
+
+**Notes:**
+
+- `gender` values:
+  - `F` = Female
+  - `M` = Male
+
+**Available Functions:**
+
+- Add a new person: ❌ Not implemented
+- Delete a person: ❌ Not implemented
+- Search for a person using:
+  - id
+  - name
+  - nickname
+  - location
+  - phone
+  - gid
+  - joindate
+  - gender
+
+### 3. Table: People_Status
+
+Maintains the relationship between people and their assigned statuses.
+
+| Column Name | Data Type | Constraints           |
+| ----------- | --------- | --------------------- |
+| people_ID   | INT       | FOREIGN KEY, NOT NULL |
+| stat_ID     | INT       | FOREIGN KEY, NOT NULL |
+
+**Relationships:**
+
+- `people_ID` references `id` in the `People` table with `ON DELETE CASCADE` and `ON UPDATE CASCADE`.
+- `stat_ID` references `id` in the `Status` table with `ON DELETE CASCADE` and `ON UPDATE CASCADE`.
+
+**Available Functions:**
+
+- Assign a status to a person: ❌ Not implemented
+- Delete a status: ❌ Not implemented
+- Update a status: ❌ Not implemented
+- Search for people by status type: ❌ Not implemented
+
+### 4. Table: Type_of_helping
+
+Defines different types of assistance available for people.
+
+| Column Name  | Data Type | Constraints                 |
+| ------------ | --------- | --------------------------- |
+| id           | INT       | PRIMARY KEY, AUTO_INCREMENT |
+| helping_name | CHAR(250) | NOT NULL                    |
+
+**Available Functions:**
+
+- Add a new type of helping: ❌ Not implemented
+- Delete a type of helping: ❌ Not implemented
+- Retrieve all types of helping: ❌ Not implemented
+
+### 5. Table: Assistances
+
+Tracks assistance provided to individuals.
+
+| Column Name     | Data Type | Constraints                 |
+| --------------- | --------- | --------------------------- |
+| id              | INT       | PRIMARY KEY, AUTO_INCREMENT |
+| people_ID       | INT       | FOREIGN KEY, NOT NULL       |
+| helping_ID      | INT       | FOREIGN KEY, NOT NULL       |
+| notes           | TEXT      | NULL                        |
+| Assistance_date | DATE      | DEFAULT CURRENT_TIMESTAMP   |
+| value           | CHAR(100) | NOT NULL                    |
+
+**Relationships:**
+
+- `people_ID` references `id` in the `People` table with `ON DELETE CASCADE` and `ON UPDATE CASCADE`.
+- `helping_ID` references `id` in the `Type_of_helping` table with `ON DELETE CASCADE` and `ON UPDATE CASCADE`.
+
+**Available Functions:**
+
+- Add assistance for a person: ❌ Not implemented
+- Delete assistance: ❌ Not implemented
+- Retrieve all assistances: ❌ Not implemented
+
+## Additional Features
+
+### Get Last ID Function
+
+A function must be implemented to retrieve the last inserted `id` from the `People` table. This function is essential when adding new records to maintain consistency across related tables.
+
+## Future Enhancements
+
+- Implement CRUD operations for all tables.
+- Develop a user-friendly interface to interact with the database.
+- Enhance security measures, including data validation and role-based access control.
+
+## Usage
+
+To use the Kherko database, follow these steps:
+
+1. **Database Setup**: Ensure that the database is set up with the appropriate tables and relationships as described in the schema.
+2. **Data Entry**: Use the available functions to add, update, or delete records in the tables.
+3. **Data Retrieval**: Utilize the search and retrieval functions to access the stored data.
+
+## Contributing
+
+Contributions to the Kherko database project are welcome. Please ensure that any changes or additions adhere to the existing schema and functionality.
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
+
+## Contact
+
+For any questions or suggestions, please contact the project maintainer at [email@example.com](mailto:email@example.com).
 
 ---
 
-## 2. Table: <span style="color:#3498DB;">`family_numbers`</span>
-
-This table keeps track of family members for each individual.
-
-### Columns:
-| Column Name  | Data Type      | Constraints                     |
-|--------------|----------------|---------------------------------|
-| <span style="color:#F39C12;">**people_id**</span>| <span style="color:#9B59B6;">int</span>        | <span style="color:#1ABC9C;">FOREIGN KEY, NOT NULL</span>           |
-| <span style="color:#F39C12;">**male**</span>     | <span style="color:#9B59B6;">int</span>        | <span style="color:#95A5A6;">NULL</span>                            |
-| <span style="color:#F39C12;">**female**</span>   | <span style="color:#9B59B6;">int</span>        | <span style="color:#95A5A6;">NULL</span>                            |
-
-### Relationships:
-- `people_id` is linked to the `id` column in the `people` table with <span style="color:#E74C3C;">`ON DELETE CASCADE`</span> and <span style="color:#E74C3C;">`ON UPDATE CASCADE`</span>.
-
-### Available Functions: ❌ Not Implemented
-- Add male and female count
-- Update male count
-- Update female count
-- Delete male count
-- Delete female count
-- Retrieve male count
-- Retrieve female count
-- Retrieve both male and female count
-
----
-
-## 3. Table: <span style="color:#3498DB;">`types_status`</span>
-
-This table defines different status types.
-
-### Columns:
-| Column Name  | Data Type      | Constraints                      |
-|--------------|----------------|----------------------------------|
-| <span style="color:#F39C12;">**id**</span>       | <span style="color:#9B59B6;">int</span>         | <span style="color:#1ABC9C;">PRIMARY KEY, AUTO_INCREMENT</span>      |
-| <span style="color:#F39C12;">**statustitle**</span> | <span style="color:#9B59B6;">VARCHAR(30)</span> | <span style="color:#1ABC9C;">NOT NULL</span>                         |
-
-### Available Functions: ❌ Not Implemented
-- Add a new status type
-- Delete a status type
-- Retrieve all status types
-
----
-
-## 4. Table: <span style="color:#3498DB;">`statue`</span>
-
-This table associates people with status types.
-
-### Columns:
-| Column Name    | Data Type      | Constraints                     |
-|----------------|----------------|---------------------------------|
-| <span style="color:#F39C12;">**id**</span>         | <span style="color:#9B59B6;">int</span>         | <span style="color:#1ABC9C;">PRIMARY KEY, AUTO_INCREMENT</span>      |
-| <span style="color:#F39C12;">**typestatus_id**</span>| <span style="color:#9B59B6;">int</span>         | <span style="color:#1ABC9C;">FOREIGN KEY, NOT NULL</span>            |
-| <span style="color:#F39C12;">**people_id**</span>  | <span style="color:#9B59B6;">int</span>         | <span style="color:#1ABC9C;">FOREIGN KEY, NOT NULL</span>            |
-
-### Relationships:
-- `typestatus_id` is linked to the `id` column in the `types_status` table with <span style="color:#E74C3C;">`ON DELETE CASCADE`</span> and <span style="color:#E74C3C;">`ON UPDATE CASCADE`</span>.
-- `people_id` is linked to the `id` column in the `people` table with <span style="color:#E74C3C;">`ON DELETE CASCADE`</span> and <span style="color:#E74C3C;">`ON UPDATE CASCADE`</span>.
-
-### Available Functions: ❌ Not Implemented
-- Assign a status to a person
-- Delete a status
-- Update a status
-- Search for people by status type
-
----
-
-## Additional Notes:
-- **You must create the `get last id` function** because it is crucial for generating a new person's ID.
-- **Table `family_numbers`**:
-  - It is recommended to add a primary key (`id`) to the `family_numbers` table for clarity and easier identification of each entry.
-  - **People_id** should ideally be unique within the context of the table to avoid duplicate entries for the same person.
-- **Table `types_status`**:
-  - Clarified that the column `statustitle` defines a status type.
-- **Table `statue`**:
-  - The relationship between `people` and `types_status` is established correctly, but it may be helpful to note how the status changes over time.
-  - Additional clarification regarding the update and deletion rules for statuses could be useful.
-
----
-
+This documentation serves as a comprehensive guide to the Kherko database schema and its current functionalities. Further updates and implementations will be added as the project evolves.

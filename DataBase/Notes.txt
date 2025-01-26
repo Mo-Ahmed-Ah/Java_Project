@@ -1,106 +1,113 @@
-Documentation
-    any person has got id (Unique) , name , nickname , phone , gid number and location
-        the id filed is Unique and auto increment that mean this filed is primary key.
-        the name filed can't set null and this filed upper length is 50 characters,someone
+Database Name: Kherko
 
-Database Name: kherko
-1- Table: people
+1- Table: Status
+		-------------------------------------------------------------
+		| Column Name | Data Type	 | Constraints 					|
+		| id		  | INT	 		 | PRIMARY KEY, AUTO_INCREMENT 	|
+		| stat_name	  | VARCHAR(50)  | NOT NULL						|
+		-------------------------------------------------------------
+	Available Functions:
+		Add a new status 		  | False
+		Delete a status  		  | False
+		Retrieve all status types | False
 
-    | Column Name | Data Type	 |          Constraints           |
-    | id	      | int	         | PRIMARY KEY , AUTO_INCREMENT	  |
-    | name	      | VARCHAR(50)	 | NOT NULL	                      |
-    | nickname    | VARCHAR(30)	 | NULL	                          |
-    | birthdate   | DATE         | NULL	                          |
-    | location	  | VARCHAR(100) | NULL	                          |
-    | phone	      | VARCHAR(15)	 | NULL	                          |
-    | gender	  | CHAR(1)	     | NOT NULL	                      |
-    | gid	      | CHAR(14)	 | NULL	                          |
-    | notes       | TEXT	     | NULL	                          |
-    | joindate	  | DATE	     | NULL	                          |
 
+2- Table: People
+	------------------------------------------------------------
+	| Column Name |	Data Type    |	Constraints				   |
+	| id 		  | INT	         | PRIMARY KEY, AUTO_INCREMENT |
+	| fname	      | VARCHAR(50)  | NOT NULL				  	   |
+	| lname		  | VARCHAR(50)	 | NOT NULL					   |
+	| nickname	  | VARCHAR(50)	 | NULL						   |
+	| city		  | VARCHAR(50)	 | NULL						   |
+	| street	  | VARCHAR(100) | NULL					       |
+	| phone		  | VARCHAR(15)	 | NULL						   |
+	| gender	  | CHAR(1)		 | NOT NULL					   |
+	| gid		  | CHAR(14) 	 | NULL						   |
+	| notes		  | TEXT  		 | NULL						   |
+	| joindate	  | DATE		 | DEFAULT CURRENT_TIMESTAMP   |
+	------------------------------------------------------------
+	Gender:												
+		F = Female
+		M = Male
+
+	Available Functions:
+
+		Add a new person | False
+		Delete a person  | False
+		Search for a person using:
+			id
+			name
+			nickname
+			location
+			phone
+			gid
+			joindate
+			gender
+
+
+3- Table: People_Status
+
+	---------------------------------------------------
+	| Column Name | Data Type | Constraints 		  |
+	| people_ID	  | INT		  | FOREIGN KEY, NOT NULL |
+	| stat_ID	  | INT		  | FOREIGN KEY, NOT NULL |
+	---------------------------------------------------
+
+	Relationships:
+
+		people_ID is linked to the id column in the People table with ON DELETE CASCADE and ON UPDATE CASCADE.
+		stat_ID is linked to the id column in the Status table with ON DELETE CASCADE and ON UPDATE CASCADE.
+
+	Available Functions:
+
+		Assign a status to a person | False
+		Delete a status | False
+		Update a status | False
+		Search for people by status type | False
+
+
+4- Table: Type_of_helping
+
+	----------------------------------------------------------
+	| Column Name  | Data Type |	Constraints 			 |
+	| id		   | INT 	   | PRIMARY KEY, AUTO_INCREMENT |
+	| helping_name | CHAR(250) | NOT NULL 					 |
+	----------------------------------------------------------
+
+	Available Functions:
+
+		Add a new type of helping | False
+		Delete a type of helping | False
+		Retrieve all types of helping | False
+
+
+5- Table: Assistances
+
+	| Column Name 	  |	Data Type | Constraints 				|
+	| id		  	  | INT		  | PRIMARY KEY, AUTO_INCREMENT |
+	| people_ID	  	  | INT		  | FOREIGN KEY, NOT NULL 		|
+	| helping_ID  	  | INT		  | FOREIGN KEY, NOT NULL 		| 
+	| notes		  	  | TEXT	  | NULL 						|
+	| Assistance_date | DATE 	  | DEFAULT CURRENT_TIMESTAMP 	|
+	| value	      	  | CHAR(100) | NOT NULL 					|
+
+	Relationships:
+
+		people_ID is linked to the id column in the People table with ON DELETE CASCADE and ON UPDATE CASCADE.
+		helping_ID is linked to the id column in the Type_of_helping table with ON DELETE CASCADE and ON UPDATE CASCADE.
+
+	Available Functions:
+
+		Add assistance for a person | False
+		Delete assistance | False
+		Retrieve all assistances | False
+
+_______________________________________________________________
 Notes:
-
-    gender:
-        F = Female
-        M = Male
-    gid:
-        Represents the national ID or government identifier of the person.
-
-    Available Functions:
-         Add a new person   |Create in Interface| git one
-         Delete a person    |Create in Interface| git one
-
-    Search for a person using:
-        gitAll      |Create in Interface| get all
-        id          |Create in Interface| get one
-        name        |Create in Interface| get all with same name
-        nickname    |Create in Interface| get all with same nickname
-        location    |Create in Interface| get all with same location
-        phone       |Create in Interface| get one
-        gid         |Create in Interface| get one
-        joindate    |Create in Interface| get all joined in same time
-        gender      |Create in Interface| get ait all with same gender
-
-__________________________________________________________________________________________
-2- Table: family_numbers
-
-    | Column Name   | Data Type | Constraints           |
-    | people_id	    | int	    | FOREIGN KEY, NOT NULL	|
-    | male	        | int	    | NULL	                |
-    | female	    | int	    | NULL	                |
-
-    Relationships:
-
-        people_id is linked to the id column in the people table with ON DELETE CASCADE and ON UPDATE CASCADE.
-
-    Available Functions:
-
-         Add male and female count              |False|
-         Update male count                      |False|
-         Update female count                    |False|
-         Delete male count                      |False|
-         Delete female count                    |False|
-         Retrieve male count                    |False|
-         Retrieve female count                  |False|
-         Retrieve both male and female count    |False|
-
-__________________________________________________________________________________________
-
-3- Table: types_status
-
-    | Column Name	 | Data Type   | Constraints	             |
-    | id	         | int	       | PRIMARY KEY, AUTO_INCREMENT |
-    | statustitle	 | VARCHAR(30) | NOT NULL	                 |
-
-    Available Functions:
-
-         Add a new status type      |False|
-         Delete a status type       |False|
-         Retrieve all status types  |False|
-
-__________________________________________________________________________________________
-
-4- Table: statue
-
-    | Column Name	 | Data Type | Constraints	               |
-    | id	         | int	     | PRIMARY KEY, AUTO_INCREMENT |
-    | typestatus_id  | int	     | FOREIGN KEY, NOT NULL	   |
-    | people_id	     | int	     | FOREIGN KEY, NOT NULL       |
-
-    Relationships:
-
-        typestatus_id is linked to the id column in the types_status table with ON DELETE CASCADE and ON UPDATE CASCADE.
-        people_id is linked to the id column in the people table with ON DELETE CASCADE and ON UPDATE CASCADE.
-
-    Available Functions:
-
-         Assign a status to a person        |False|
-         Delete a status                    |False|
-         Update a status                    |False|
-         Search for people by status type   |False|
-
-__________________________________________________________________________________________
-
-More notes:
-    you most be creating the get last id function because you need that is very important to generat id with new person.
-     
+	Gender:
+		F = Female
+		M = Male
+	Get Last ID Function:
+		Create a function to retrieve the last inserted ID in the People table as it is crucial when adding new records to other tables.
+		This structured documentation file outlines your database schema, tables, columns, relationships, and available functions for interacting with the database. Let me know if you need further adjustments or explanations!
