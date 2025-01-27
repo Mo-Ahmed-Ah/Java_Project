@@ -7,9 +7,11 @@ Database Name: Kherko
 		| stat_name	  | VARCHAR(50)  | NOT NULL						|
 		-------------------------------------------------------------
 	Available Functions:
-		Add a new status 		  | False
-		Delete a status  		  | False
-		Retrieve all status types | False
+		Add a new status 		     | Finsh without interface
+		Delete a status  		     | Finsh without interface
+		Retrieve all status types    | Finsh without interface
+		Retrieve status name with id | Finsh without interface
+		Check id is true             | Finsh without interface
 
 
 2- Table: People

@@ -17,9 +17,11 @@ Stores different status types that can be assigned to individuals.
 
 **Available Functions:**
 
-- Add a new status: ❌ Not implemented
-- Delete a status: ❌ Not implemented
-- Retrieve all status types: ❌ Not implemented
+- Add a new status: ❌ Finsh without interface
+- Delete a status: ❌ Finsh without interface
+- Retrieve all status types: ❌ Finsh without interface
+- Retrieve status name with id : ❌ Finsh without interface
+- Check id is true : ❌ Finsh without interface
 
 ### 2. Table: People
 
