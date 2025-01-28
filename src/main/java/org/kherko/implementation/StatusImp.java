@@ -4,7 +4,10 @@ import org.kherko.dao.StatusDao;
 import org.kherko.model.Status;
 import org.kherko.util.DatabaseConnection;
 
-import java.sql.*;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -83,9 +86,10 @@ public class StatusImp implements StatusDao {
 
         return name;
     }
+
     @Override
     public boolean isTrueID(int id) {
-        String query = "SELECT 1 FROM Status WHERE id = ?;"; // لا داعي لجلب "stat_name"
+        String query = "SELECT 1 FROM Status WHERE id = ?;";
         try (Connection conn = DatabaseConnection.getConnection();
              PreparedStatement preparedStatement = conn.prepareStatement(query)) {
 
@@ -93,15 +97,13 @@ public class StatusImp implements StatusDao {
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 if (resultSet.next()) {
-                    return true; // إرجاع true عند العثور على id في الجدول
+                    return true;
                 }
             }
         } catch (SQLException se) {
             logger.log(Level.SEVERE, "Failed to check status ID: " + se.getMessage(), se);
         }
 
-        return false; // إرجاع false إذا لم يتم العثور على id
+        return false;
     }
-
-
 }

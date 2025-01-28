@@ -79,9 +79,10 @@ Database Name: Kherko
 
 	Available Functions:
 
-		Add a new type of helping | False
-		Delete a type of helping | False
-		Retrieve all types of helping | False
+		Add a new type of helping     | Finsh without interface
+		Delete a type of helping      | Finsh without interface
+		Retrieve all types of helping | Finsh without interface
+		Check id is true              | Finsh without interface
 
 
 5- Table: Assistances

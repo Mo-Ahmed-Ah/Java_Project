@@ -20,8 +20,7 @@ public class People {
     public People() {
     }
 
-    public People(int id ,String name, String nickname, Date birthdate, String location, String phone, String gender, String gid, String notes, Date joindate , int familynumbers , String statustitle) {
-        this.id = id;
+    public People(String name, String nickname, Date birthdate, String location, String phone, String gender, String gid, String notes, Date joindate , int familynumbers , String statustitle) {
         this.name = name;
         this.nickname = nickname;
         this.birthdate = birthdate;
@@ -130,24 +129,5 @@ public class People {
     public void setStatustitle(String statustitle) {
         this.statustitle = statustitle;
     }
-
-    @Override
-    public String toString() {
-        return "People{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", birthdate=" + birthdate +
-                ", location='" + location + '\'' +
-                ", phone='" + phone + '\'' +
-                ", gender='" + gender + '\'' +
-                ", gid='" + gid + '\'' +
-                ", notes='" + notes + '\'' +
-                ", joindate=" + joindate +
-                ", familynumbers=" + familynumbers +
-                ", statustitle='" + statustitle + '\'' +
-                '}';
-    }
-
 
 }
