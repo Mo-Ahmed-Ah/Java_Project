@@ -6,11 +6,7 @@ import java.util.List;
 
 public interface TypeOfHelpingDao {
     void addTypeOfHelping(String name);
-
-    void  deleteTypeOfHelping(int id);
-
+    void deleteTypeOfHelping(int id);
     boolean isTrueId(int id);
-
     List<TypeOfHelping> getAllType();
-
 }

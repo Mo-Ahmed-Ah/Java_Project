@@ -1,59 +1,100 @@
 package org.kherko.dao;
 
 import org.kherko.model.People;
-
 import java.util.List;
 
-/*
- * 1 - This file represents a Data Access Object (DAO) interface for interacting with the "People" table in the database.
- * 2 - This file contains method signatures that will be implemented by a class that implements this interface.
- * 3 - These methods include adding a person, deleting a person, retrieving all people, retrieving a person by ID, retrieving people by name,
- *     retrieving people by nickname, retrieving a person by GID, retrieving people by gender, retrieving people by location, retrieving a person by phone,
- *     retrieving people by status type, retrieving people by join date, and updating a person's data.
- *
- * 4 - Explanation of methods:
- *       1 - addPerson: Takes a person's data and adds it to the "People" table.
- *       2 - deletePerson: Deletes a person's data from the "People" table, "People Status Type" table, and "Assistant" table.
- *       3 - getAll: Retrieves a list of all people in the "People" table.
- *       4 - getById: Retrieves a specific person based on the provided ID.
- *       5 - getByName: Retrieves a list of people whose names match the provided name.
- *       6 - getByNickname: Retrieves a list of people whose nicknames match the provided nickname.
- *       7 - getByGid: Retrieves a specific person based on the provided GID.
- *       8 - getByGender: Retrieves a list of people whose gender matches the provided gender.
- *       9 - getByLocation: Retrieves a list of people whose location matches the provided city and street.
- *       10 - getByPhone: Retrieves a specific person based on the provided phone number.
- *       11 - getByStatusType: Retrieves a list of people whose status type matches the provided status name.
- *       12 - getByJoinDate: Retrieves a list of people whose join date matches the provided date.
- *       13 - updatePerson: Updates a specific person's data based on the provided ID.
- *       14 - deletePerson: Deletes a specific person based on the provided ID.
+/**
+ * This interface defines the Data Access Object (DAO) for interacting with the "People" table in the database.
+ * It includes method signatures for adding, deleting, retrieving, and updating people records.
  */
-
 public interface PeopleDao {
 
-    void addPerson(People person); // Add a new person
+    /**
+     * Adds a new person to the database.
+     * @param person The person object to be added.
+     */
+    void addPerson(People person);
 
-    List<People> getAll();  // Retrieve all people
+    /**
+     * Retrieves all people from the database.
+     * @return A list of all people.
+     */
+    List<People> getAll();
 
-    People getById(int id); // Retrieve a person by ID
+    /**
+     * Retrieves a person by their unique ID.
+     * @param id The ID of the person.
+     * @return The person object if found, otherwise null.
+     */
+    People getById(int id);
 
-    List<People> getByName(String name); // Retrieve people by name
+    /**
+     * Retrieves people by their first name.
+     * @param name The name to search for.
+     * @return A list of people matching the name.
+     */
+    List<People> getByName(String name);
 
-    List<People> getByNickname(String nickname); // Retrieve people by nickname
+    /**
+     * Retrieves people by their nickname.
+     * @param nickname The nickname to search for.
+     * @return A list of people matching the nickname.
+     */
+    List<People> getByNickname(String nickname);
 
-    People getByGid(String gid); // Retrieve a person by GID
+    /**
+     * Retrieves a person by their unique GID.
+     * @param gid The GID of the person.
+     * @return The person object if found, otherwise null.
+     */
+    People getByGid(String gid);
 
-    List<People> getByGender(String gender); // Retrieve people by gender
+    /**
+     * Retrieves people by their gender.
+     * @param gender The gender to search for ("M" or "F").
+     * @return A list of people matching the gender.
+     */
+    List<People> getByGender(String gender);
 
-    List<People> getByLocation(String city, String street); // Retrieve people by location
+    /**
+     * Retrieves people by their location (city and street).
+     * @param city The city to search for.
+     * @param street The street to search for.
+     * @return A list of people matching the location.
+     */
+    List<People> getByLocation(String city, String street);
 
-    People getByPhone(String phone); // Retrieve a person by phone number
+    /**
+     * Retrieves a person by their phone number.
+     * @param phone The phone number to search for.
+     * @return The person object if found, otherwise null.
+     */
+    People getByPhone(String phone);
 
-    List<People> getByStatusType(String statusName); // Retrieve people by status type
+    /**
+     * Retrieves people by their status type.
+     * @param statusName The status type to search for.
+     * @return A list of people matching the status type.
+     */
+    List<People> getByStatusType(String statusName);
 
-    List<People> getByJoinDate(String joinDate); // Retrieve people by join date
+    /**
+     * Retrieves people by their join date.
+     * @param joinDate The join date to search for.
+     * @return A list of people who joined on the specified date.
+     */
+    List<People> getByJoinDate(String joinDate);
 
-    void updatePerson(People person, int personId); // Update a person's data
+    /**
+     * Updates a person's data in the database.
+     * @param person The updated person object.
+     * @param personId The ID of the person to update.
+     */
+    void updatePerson(People person, int personId);
 
-    void deletePerson(int id); // Delete a person by ID
-
+    /**
+     * Deletes a person from the database by ID.
+     * @param id The ID of the person to delete.
+     */
+    void deletePerson(int id);
 }

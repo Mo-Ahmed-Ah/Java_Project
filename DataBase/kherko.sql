@@ -1,35 +1,43 @@
-CREATE TABLE Status (
-    ID INT PRIMARY KEY AUTO_INCREMENT,
-    Stat_name VARCHAR(255) NOT NULL
-);
+CREATE DATABASE IF NOT EXISTS kherko;
 
-CREATE TABLE People (
+USE kherko;
+
+CREATE TABLE IF NOT EXISTS People (
     ID INT PRIMARY KEY AUTO_INCREMENT,
-    First_Name VARCHAR(255) NOT NULL,
-    Last_Name VARCHAR(255) NOT NULL,
-    GID VARCHAR(50),
-    City VARCHAR(255),
-    Street VARCHAR(255),
-    Male_Child INT DEFAULT 0,
-    Female_Child INT DEFAULT 0,
-    Status_ID INT,
+    FirstName VARCHAR(100) NOT NULL,
+    LastName VARCHAR(100),
+    GID VARCHAR(50) NOT NULL,
+    City VARCHAR(100),
+    Street VARCHAR(100),
+    MaleChild INT DEFAULT 0,
+    FemaleChild INT DEFAULT 0,
+    Status ENUM(
+        'أعزب',
+        'مخطوب',
+        'متزوج',
+        'متزوج ويعول',
+        'مطلق',
+        'مطلق ويعول',
+        'أرمل',
+        'أرمل ويعول',
+        'منفصل'
+    ) NOT NULL DEFAULT 'أعزب',
     Notes TEXT,
-    Join_Date DATE,
-    FOREIGN KEY (Status_ID) REFERENCES Status(ID) ON DELETE SET NULL
+    JoinDate DATE
 );
 
-CREATE TABLE Helping (
+CREATE TABLE IF NOT EXISTS HelpingTypes (
     ID INT PRIMARY KEY AUTO_INCREMENT,
-    Helping_name VARCHAR(255) NOT NULL
+    HelpingName VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE People_Helping (
+CREATE TABLE IF NOT EXISTS Helpings (
     ID INT PRIMARY KEY AUTO_INCREMENT,
-    People_ID INT,
-    Helping_ID INT,
+    PeopleID INT,
+    HelpingID INT,
     Value DECIMAL(10,2),
     Notes TEXT,
     Date DATE,
-    FOREIGN KEY (People_ID) REFERENCES People(ID) ON DELETE CASCADE,
-    FOREIGN KEY (Helping_ID) REFERENCES Helping(ID) ON DELETE CASCADE
+    FOREIGN KEY (PeopleID) REFERENCES People(ID) ON DELETE CASCADE,
+    FOREIGN KEY (HelpingID) REFERENCES HelpingTypes(ID) ON DELETE CASCADE
 );

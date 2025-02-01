@@ -4,85 +4,70 @@ import org.kherko.dao.TypeOfHelpingDao;
 import org.kherko.model.TypeOfHelping;
 import org.kherko.util.DatabaseConnection;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 
 public class TypeOfHelpingImp implements TypeOfHelpingDao {
-    private static final Logger logger = Logger.getLogger(StatusImp.class.getName());
 
     @Override
     public void addTypeOfHelping(String name) {
-        String query = "INSERT INTO Type_of_helping (helping_name) VALUES (?);";
-
+        String sql = "INSERT INTO TypeOfHelping (name) VALUES (?)";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-
-            preparedStatement.setString(1, name);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException se) {
-            logger.log(Level.SEVERE, "Failed to insert status: " + se.getMessage(), se);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, name);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public void deleteTypeOfHelping(int id) {
-        String query = "DELETE FROM Type_of_helping WHERE id=?;";
-
+        String sql = "DELETE FROM TypeOfHelping WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
-
-        } catch (SQLException se) {
-            logger.log(Level.SEVERE, "Failed to delete status: " + se.getMessage(), se);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
     }
 
     @Override
     public boolean isTrueId(int id) {
-        String query = "SELECT 1 FROM Type_of_helping WHERE id = ?;";
+        String sql = "SELECT COUNT(*) FROM TypeOfHelping WHERE id = ?";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(query)) {
-
-            preparedStatement.setInt(1, id);
-
-            try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) {
-                    return true;
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, id);
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getInt(1) > 0;
                 }
             }
-        } catch (SQLException se) {
-            logger.log(Level.SEVERE, "Failed to check status ID: " + se.getMessage(), se);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-
         return false;
     }
 
     @Override
     public List<TypeOfHelping> getAllType() {
-        List<TypeOfHelping> statuses = new ArrayList<>();
-        String query = "SELECT id, helping_name FROM Type_of_helping;";
-
+        List<TypeOfHelping> typeList = new ArrayList<>();
+        String sql = "SELECT * FROM TypeOfHelping";
         try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement preparedStatement = conn.prepareStatement(query);
-             ResultSet resultSet = preparedStatement.executeQuery()) {
-
-            while (resultSet.next()) {
-                statuses.add(new TypeOfHelping(resultSet.getInt("id"), resultSet.getString("helping_name")));
+             Statement stmt = conn.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+            while (rs.next()) {
+                TypeOfHelping type = new TypeOfHelping(
+                        rs.getInt("id"),
+                        rs.getString("name")
+                );
+                typeList.add(type);
             }
-
-        } catch (SQLException se) {
-            logger.log(Level.SEVERE, "Failed to retrieve statuses: " + se.getMessage(), se);
+        } catch (SQLException e) {
+            e.printStackTrace();
         }
-        return statuses;
+        return typeList;
     }
 }

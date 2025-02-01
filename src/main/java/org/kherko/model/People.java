@@ -6,56 +6,32 @@ public class People {
     private int id;
     private String firstName;
     private String lastName;
-    private String nickName;
     private String gid;
     private String city;
     private String street;
-    private int statusTypeId;
-    private String gender;
-    private String phoneNumber;
-    private int male;
-    private int female;
-    private Date joinDate;
+    private int maleChild;
+    private int femaleChild;
+    private String status;
     private String notes;
+    private Date joinDate;
 
     public People() {
     }
 
-    // Constructor With all data
-    public People(int id, String firstName, String lastName, String nickName, String gid, String city, String street,
-                  int statusTypeId, String gender, int male, int female, Date joinDate, String notes) {
+    public People(int id, String firstName, String lastName, String gid, String city, String street,
+                  int maleChild, int femaleChild, String status, String notes, Date joinDate) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName != null ? lastName : "Unknown";
-        this.nickName = nickName != null ? nickName : "No Nickname";
         this.gid = gid;
         this.city = city != null ? city : "Unknown";
         this.street = street != null ? street : "Unknown";
-        this.statusTypeId = statusTypeId;
-        this.gender = gender.equals("Male") ? "M" : gender.equals("Female") ? "F" : null;
-        this.male = male;
-        this.female = female;
+        this.maleChild = maleChild;
+        this.femaleChild = femaleChild;
+        this.status = status != null ? status : "أعزب";
+        this.notes = notes;
         this.joinDate = joinDate != null ? joinDate : new Date();
-        this.notes = notes != null ? notes : null;
     }
-
-    // Constructor Without id
-    public People(String firstName, String lastName, String nickName, String gid, String city, String street,
-                  int statusTypeId, String gender, int male, int female, Date joinDate, String notes) {
-        this.firstName = firstName;
-        this.lastName = lastName != null ? lastName : "Unknown";
-        this.nickName = nickName != null ? nickName : "No Nickname";
-        this.gid = gid;
-        this.city = city != null ? city : "Unknown";
-        this.street = street != null ? street : "Unknown";
-        this.statusTypeId = statusTypeId;
-        this.gender = gender.equals("Male") ? "M" : gender.equals("Female") ? "F" : null;
-        this.male = male;
-        this.female = female;
-        this.joinDate = joinDate != null ? joinDate : new Date();
-        this.notes = notes != null ? notes : null;
-    }
-
 
     public int getId() {
         return id;
@@ -79,14 +55,6 @@ public class People {
 
     public void setLastName(String lastName) {
         this.lastName = lastName;
-    }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
     }
 
     public String getGid() {
@@ -113,52 +81,28 @@ public class People {
         this.street = street;
     }
 
-    public int getStatusTypeId() {
-        return statusTypeId;
+    public int getMaleChild() {
+        return maleChild;
     }
 
-    public void setStatusTypeId(int statusTypeId) {
-        this.statusTypeId = statusTypeId;
+    public void setMaleChild(int maleChild) {
+        this.maleChild = maleChild;
     }
 
-    public String getGender() {
-        return gender;
+    public int getFemaleChild() {
+        return femaleChild;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
+    public void setFemaleChild(int femaleChild) {
+        this.femaleChild = femaleChild;
     }
 
-    public String getPhoneNumber() {
-        return phoneNumber;
+    public String getStatus() {
+        return status;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
-        this.phoneNumber = phoneNumber;
-    }
-
-    public int getMale() {
-        return male;
-    }
-
-    public void setMale(int male) {
-        this.male = male;
-    }
-
-    public int getFemale() {
-        return female;
-    }
-
-    public void setFemale(int female) {
-        this.female = female;
-    }
-
-    public Date getJoinDate() {
-        return joinDate;
-    }
-
-    public void setJoinDate(Date joinDate) {
-        this.joinDate = joinDate;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getNotes() {
@@ -167,5 +111,13 @@ public class People {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public Date getJoinDate() {
+        return joinDate;
+    }
+
+    public void setJoinDate(Date joinDate) {
+        this.joinDate = joinDate;
     }
 }
