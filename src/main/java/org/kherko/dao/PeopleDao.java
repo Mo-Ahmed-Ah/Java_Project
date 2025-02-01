@@ -97,4 +97,6 @@ public interface PeopleDao {
      * @param id The ID of the person to delete.
      */
     void deletePerson(int id);
+
+    List<String> getStatusFromStatusColumnInDataBase();
 }

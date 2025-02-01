@@ -370,4 +370,24 @@ public class PeopleImp implements PeopleDao {
             e.printStackTrace();
         }
     }
+
+    @Override
+    public List<String> getStatusFromStatusColumnInDataBase() {
+        List<String> statusList = new ArrayList<>();
+        String sql = "SELECT DISTINCT status FROM People";
+
+        try (Connection conn = DatabaseConnection.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql);
+             ResultSet rs = pstmt.executeQuery()) {
+
+            while (rs.next()) {
+                statusList.add(rs.getString("status"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return statusList;
+    }
+
 }

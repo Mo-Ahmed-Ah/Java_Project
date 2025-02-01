@@ -3,18 +3,11 @@ package org.kherko.interfaces;
 import org.kherko.dao.PeopleDao;
 import org.kherko.implementation.PeopleImp;
 import org.kherko.model.People;
-import org.kherko.util.DatabaseConnection;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 public class AddPeople extends javax.swing.JFrame {
 
@@ -38,8 +31,10 @@ public class AddPeople extends javax.swing.JFrame {
         jTextField5 = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jTextField8 = new javax.swing.JTextField();
+        jTextField9 = new javax.swing.JTextField();
+        jTextField10 = new javax.swing.JTextField();
+        jComboBox1 = new javax.swing.JComboBox<>();
         jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -54,6 +49,7 @@ public class AddPeople extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Adding New Person");
 
+        // Add all necessary fields for person
         jTextField1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         jTextField1.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField1.setText("Enter your Nick Name");
@@ -110,19 +106,35 @@ public class AddPeople extends javax.swing.JFrame {
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
 
-        jComboBox1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
-        jComboBox1.setToolTipText("Select Your Status");
-        jComboBox1.setBorder(BorderFactory.createCompoundBorder(
-                BorderFactory.createLineBorder(new Color(189, 189, 189)),
-                BorderFactory.createEmptyBorder(5, 10, 5, 10)
-        ));
-
         jTextField8.setFont(new Font("Segoe UI", Font.PLAIN, 14));
         jTextField8.setHorizontalAlignment(javax.swing.JTextField.CENTER);
         jTextField8.setText("Add your Notes");
         jTextField8.setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(189, 189, 189)),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+
+        jTextField9.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        jTextField9.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField9.setText("Enter Male Children Count");
+        jTextField9.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(189, 189, 189)),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+
+        jTextField10.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        jTextField10.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        jTextField10.setText("Enter Female Children Count");
+        jTextField10.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(189, 189, 189)),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10)
+        ));
+
+        jComboBox1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        jComboBox1.setToolTipText("Select Your Status");
+        jComboBox1.setBorder(BorderFactory.createCompoundBorder(
+                BorderFactory.createLineBorder(new Color(189, 189, 189)),
+                BorderFactory.createEmptyBorder(5, 10, 5, 10)
         ));
 
         jButton1.setFont(new Font("Segoe UI", Font.BOLD, 14));
@@ -163,7 +175,11 @@ public class AddPeople extends javax.swing.JFrame {
                                                         .addComponent(jTextField4, javax.swing.GroupLayout.DEFAULT_SIZE, 200, Short.MAX_VALUE)
                                                         .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                         .addComponent(jTextField8)
-                                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(jTextField9)
+                                        .addComponent(jTextField10)
+                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                                .addGap(0, 0, Short.MAX_VALUE)
+                                                .addComponent(jButton1)))
                                 .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
@@ -171,93 +187,66 @@ public class AddPeople extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addComponent(jLabel1)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jTextField10, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(20, Short.MAX_VALUE))
-        );
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
-    }
-
-    private void setModernLookAndFeel() {
-        try {
-            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        setLocationRelativeTo(null);
     }
 
     private void loadStatusComboBox() {
-        List<String> statuses = new ArrayList<>();
-        String sql = "SELECT DISTINCT Status FROM People"; // استعلام لاسترداد القيم الفريدة من العمود Status
-
-        try (Connection conn = DatabaseConnection.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql);
-             ResultSet rs = pstmt.executeQuery()) {
-
-            while (rs.next()) {
-                statuses.add(rs.getString("Status"));
-            }
-
-            DefaultComboBoxModel<String> comboBoxModel = new DefaultComboBoxModel<>(statuses.toArray(new String[0]));
-            jComboBox1.setModel(comboBoxModel);
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error loading statuses: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        jComboBox1.addItem("Single");
+        jComboBox1.addItem("Married");
+        jComboBox1.addItem("Divorced");
     }
 
     private void savePerson() {
         try {
-            String firstName = jTextField2.getText();
-            String lastName = jTextField3.getText();
-            String nickname = jTextField1.getText();
-            String gid = jTextField4.getText();
-            String city = jTextField6.getText();
-            String street = jTextField5.getText();
-            String phone = jTextField7.getText();
-            String status = (String) jComboBox1.getSelectedItem();
-            String notes = jTextField8.getText();
+            String name = jTextField1.getText().trim();
+            String firstName = jTextField2.getText().trim();
+            String lastName = jTextField3.getText().trim();
+            String gid = jTextField4.getText().trim();
+            String street = jTextField5.getText().trim();
+            String city = jTextField6.getText().trim();
+            String phone = jTextField7.getText().trim();
+            String notes = jTextField8.getText().trim();
 
-            if (firstName.isEmpty() || lastName.isEmpty() || gid.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Please fill in all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
+            // Add a check for empty fields to ensure the user provides valid information
+            if (name.isEmpty() || firstName.isEmpty() || lastName.isEmpty() || gid.isEmpty() ||
+                    street.isEmpty() || city.isEmpty() || phone.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Please fill out all required fields.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            People person = new People(
-                    0, firstName, lastName, gid, city, street, 0, 0, status, notes, new Date()
-            );
+            int maleChildren = Integer.parseInt(jTextField9.getText().trim());
+            int femaleChildren = Integer.parseInt(jTextField10.getText().trim());
 
+            People person = new People(name, firstName, lastName, gid, street, city, phone, notes, maleChildren, femaleChildren);
             peopleDao.addPerson(person);
-            JOptionPane.showMessageDialog(this, "Person added successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-
+            JOptionPane.showMessageDialog(this, "Person added successfully.");
             clearFields();
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Error saving person: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Please enter valid numbers for children counts.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
         }
     }
 
@@ -270,7 +259,21 @@ public class AddPeople extends javax.swing.JFrame {
         jTextField6.setText("");
         jTextField7.setText("");
         jTextField8.setText("");
-        jComboBox1.setSelectedIndex(0);
+        jTextField9.setText("");
+        jTextField10.setText("");
+    }
+
+    private void setModernLookAndFeel() {
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public static void main(String args[]) {
@@ -293,4 +296,6 @@ public class AddPeople extends javax.swing.JFrame {
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextField9;
+    private javax.swing.JTextField jTextField10;
 }

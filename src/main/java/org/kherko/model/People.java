@@ -33,6 +33,22 @@ public class People {
         this.joinDate = joinDate != null ? joinDate : new Date();
     }
 
+    public People(String firstName, String lastName, String gid, String city, String street,
+                  int maleChild, int femaleChild, String status, String notes, Date joinDate) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName != null ? lastName : "Unknown";
+        this.gid = gid;
+        this.city = city != null ? city : "Unknown";
+        this.street = street != null ? street : "Unknown";
+        this.maleChild = maleChild;
+        this.femaleChild = femaleChild;
+        this.status = status != null ? status : "أعزب";
+        this.notes = notes;
+        this.joinDate = joinDate != null ? joinDate : new Date();
+    }
+
+
     public int getId() {
         return id;
     }
